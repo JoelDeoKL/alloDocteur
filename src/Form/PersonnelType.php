@@ -13,7 +13,7 @@ class PersonnelType extends AbstractType
     {
         $builder
             ->add('email')
-            ->add('roles')
+            ->add('role')
             ->add('password')
             ->add('nom_personnel')
             ->add('postnom_personnel')
