@@ -37,7 +37,7 @@ class Patient implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $postnom_patient = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $prenom_patieint = null;
+    private ?string $prenom_patient = null;
 
     #[ORM\Column(type: Types::TEXT)]
     private ?string $description_patient = null;
@@ -179,14 +179,14 @@ class Patient implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getPrenomPatieint(): ?string
+    public function getPrenomPatient(): ?string
     {
-        return $this->prenom_patieint;
+        return $this->prenom_patient;
     }
 
-    public function setPrenomPatieint(string $prenom_patieint): static
+    public function setPrenomPatient(string $prenom_patient): static
     {
-        $this->prenom_patieint = $prenom_patieint;
+        $this->prenom_patient = $prenom_patient;
 
         return $this;
     }

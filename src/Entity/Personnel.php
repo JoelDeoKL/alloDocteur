@@ -442,4 +442,9 @@ class Personnel implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+    public function __toString()
+    {
+        return $this->nom_personnel . " " . $this->postnom_personnel . " " . $this->prenom_personnel;
+    }
 }

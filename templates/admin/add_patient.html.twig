@@ -1,0 +1,89 @@
+{% extends 'admin_template.html.twig' %}
+
+{% block title %}ApproManager - Ajouter Personnel{% endblock %}
+
+{% block body %}
+
+  <!-- partial -->
+  <div class="main-panel">
+  <div class="content-wrapper">
+    <div class="row">
+      <div class="col-md-12 grid-margin stretch-card">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">Formulaire d'ajout d'un patient</h4>
+            <p class="card-description">
+              Remplir ce formulaire
+            </p>
+            {{ form_start(form, {'attr': {
+              'class':'forms-sample',
+            }}) }}
+            <div class="form-group">
+              {{ form_label(form.nom_patient) }}
+              {{ form_widget(form.nom_patient, {'attr': {
+                'class':'required form-control',
+              }}) }}
+            </div>
+            <div class="form-group">
+              {{ form_label(form.postnom_patient) }}
+              {{ form_widget(form.postnom_patient, {'attr': {
+                'class':'required form-control',
+              }}) }}
+            </div>
+            <div class="form-group">
+              {{ form_label(form.prenom_patient) }}
+              {{ form_widget(form.prenom_patient, {'attr': {
+                'class':'required form-control',
+              }}) }}
+            </div>
+            <div class="form-group">
+              {{ form_label(form.description_patient) }}
+              {{ form_widget(form.description_patient, {'attr': {
+                'class':'required form-control',
+              }}) }}
+            </div>
+            <div class="form-group">
+              {{ form_label(form.email) }}
+              {{ form_widget(form.email, {'attr': {
+                'class':'required form-control',
+              }}) }}
+            </div>
+            <div class="form-group">
+              {{ form_label(form.password) }}
+              {{ form_widget(form.password, {'attr': {
+                'class':'required form-control',
+              }}) }}
+            </div>
+            <div class="form-group">
+              {{ form_label(form.age) }}
+              {{ form_widget(form.age, {'attr': {
+                'class':'required form-control',
+              }}) }}
+            </div>
+            <div class="form-group">
+              {{ form_label(form.personnel) }}
+              {{ form_widget(form.personnel, {'attr': {
+                'class':'required form-control',
+              }}) }}
+            </div>
+            <div class="form-group">
+              {{ form_label(form.matricule) }}
+              {{ form_widget(form.matricule, {'attr': {
+                'class':'required form-control',
+              }}) }}
+            </div>
+            <div class="form-group">
+              {{ form_label(form.telephone) }}
+              {{ form_widget(form.telephone, {'attr': {
+                'class':'required form-control',
+              }}) }}
+            </div>
+
+            {{ form_widget(form.editer, {'attr': {'class':'btn btn-primary'}}) }}
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
