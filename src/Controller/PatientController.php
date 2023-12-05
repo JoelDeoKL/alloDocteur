@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Patient;
 use App\Entity\User;
 use App\Form\PatientType;
+use App\Form\AssignerType;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -78,6 +79,36 @@ class PatientController extends AbstractController
             return $this->redirectToRoute("patients");
         }else{
             return $this->render('admin/add_patient.html.twig', [
+                'form' => $form->createView()
+            ]);
+        }
+    }
+
+    #[Route('/assigner_medecin', name: 'assigner_medecin')]
+    public function assigner_medecin(Patient $patient = null, EntityManagerInterface $entityManager, ManagerRegistry $doctrine, Request $request, UserPasswordHasherInterface $userPasswordHasher): Response
+    {
+        $form = $this->createForm(AssignerType::class, $patient);
+
+        //dd($request->request);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted()){
+
+            $userVer = $entityManager->getRepository(Patient::class)->findBy(['matricule' => $form->get('matricule')->getData()]);
+
+            if(empty($userVer)){
+                return $this->redirectToRoute("editer_patient");
+            }else{
+                $user = $userVer[0];
+                $user->setPersonnel($form->get('personnel')->getData());
+                $manager = $doctrine->getManager();
+                $manager->persist($user);
+
+                $manager->flush();
+                return $this->redirectToRoute("patients");
+            }
+        }else{
+            return $this->render('admin/assigner.html.twig', [
                 'form' => $form->createView()
             ]);
         }
