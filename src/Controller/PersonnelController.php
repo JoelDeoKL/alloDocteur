@@ -54,8 +54,8 @@ class PersonnelController extends AbstractController
                 )
             );
             $user->setEmail($form->get('email')->getData());
-            $user->setRole($form->get('role')->getData());
-
+            $user->setRole("Medecin");
+            $user->setPseudo($form->get('prenom')->getData());
 
             $dateD = new \DateTime();
             $personnel->setPassword($user->getPassword());

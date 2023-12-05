@@ -25,10 +25,10 @@
                 <tbody>
                 {% for personnel in personnels %}
                   <tr>
-                    <td>{{ personnel.nom_personnel }} {{ personnel.postnom_personnel }} {{ personnel.prenom_personnel }}</td>
-                    <td>{{ personnel.description_personnel }}</td>
+                    <td>{{ personnel.nomPersonnel }} {{ personnel.postnomPersonnel }} {{ personnel.prenomPersonnel }}</td>
+                    <td>{{ personnel.descriptionPersonnel }}</td>
                     <td>{{ personnel.fonction }}</td>
-                    <td>{{ personnel.telephone_personnel }}</td>
+                    <td>{{ personnel.telephonePersonnel }}</td>
                     <td>
                       <a href="" class="btn btn-primary">Voir</a>
                       <a href="{{ path("editer_personnel", {id: personnel.id}) }}" class="btn btn-primary">Modifier</a>

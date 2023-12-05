@@ -75,9 +75,6 @@ class Personnel implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'personnel', targetEntity: Fiche::class)]
     private Collection $fiches;
 
-    #[ORM\Column(length: 255)]
-    private ?string $role = null;
-
     public function __construct()
     {
         $this->patients = new ArrayCollection();
@@ -442,18 +439,6 @@ class Personnel implements UserInterface, PasswordAuthenticatedUserInterface
                 $fich->setPersonnel(null);
             }
         }
-
-        return $this;
-    }
-
-    public function getRole(): ?string
-    {
-        return $this->role;
-    }
-
-    public function setRole(string $role): static
-    {
-        $this->role = $role;
 
         return $this;
     }

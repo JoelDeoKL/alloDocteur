@@ -4,8 +4,13 @@ namespace App\Form;
 
 use App\Entity\Personnel;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class PersonnelType extends AbstractType
 {
@@ -13,17 +18,46 @@ class PersonnelType extends AbstractType
     {
         $builder
             ->add('email')
-            ->add('role')
-            ->add('password')
+            ->add('password', PasswordType::class, [
+                // instead of being set onto the object directly,
+                // this is read and encoded in the controller
+                'attr' => ['autocomplete' => 'new-password'],
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Please enter a password',
+                    ]),
+                    new Length([
+                        'min' => 6,
+                        'minMessage' => 'Your password should be at least {{ limit }} characters',
+                        // max length allowed by Symfony for security reasons
+                        'max' => 4096,
+                    ]),
+                ],
+            ])
             ->add('nom_personnel')
             ->add('postnom_personnel')
             ->add('prenom_personnel')
             ->add('description_personnel')
-            ->add('fonction')
+            ->add('fonction', ChoiceType::class, [
+                'choices' => [
+                    'Médecin Directeur' => 'Médecin Directeur',
+                    'Médecin traitant' => 'Médecin traitant',
+                    'Infirmier' => 'Infirmier'
+                ],
+            ])
             ->add('telephone_personnel')
-            ->add('specialite')
+            ->add('specialite', ChoiceType::class, [
+                'choices' => [
+                    'Chirurgien' => 'Chirurgien',
+                    'Pédiatre' => 'Pédiatre',
+                    'Généraliste' => 'Généraliste',
+                    'Ophtamologue' => 'Ophtamologue',
+                    'Dentiste' => 'Dentiste',
+                    'Gynecologue' => 'Gynecologue',
+                ],
+            ])
             ->add('num_ordre')
-            ->add('date_creation')
+            ->add('editer', SubmitType::class)
         ;
     }
 
