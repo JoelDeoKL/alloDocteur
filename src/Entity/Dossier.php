@@ -28,6 +28,9 @@ class Dossier
     #[ORM\OneToMany(mappedBy: 'dossier', targetEntity: Fiche::class)]
     private Collection $fiches;
 
+    #[ORM\Column(length: 255)]
+    private ?string $numero = null;
+
     public function __construct()
     {
         $this->fiches = new ArrayCollection();
@@ -100,6 +103,18 @@ class Dossier
                 $fich->setDossier(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getNumero(): ?string
+    {
+        return $this->numero;
+    }
+
+    public function setNumero(string $numero): static
+    {
+        $this->numero = $numero;
 
         return $this;
     }

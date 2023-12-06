@@ -1,0 +1,47 @@
+{% extends 'admin_template.html.twig' %}
+
+{% block title %}ApproManager - Ajouter Dossier{% endblock %}
+
+{% block body %}
+
+  <!-- partial -->
+  <div class="main-panel">
+  <div class="content-wrapper">
+    <div class="row">
+      <div class="col-md-12 grid-margin stretch-card">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">Formulaire d'ajout d'un dossier</h4>
+            <p class="card-description">
+              Remplir ce formulaire
+            </p>
+            {{ form_start(form, {'attr': {
+              'class':'forms-sample',
+            }}) }}
+            <div class="form-group">
+              {{ form_label(form.numero) }}
+              {{ form_widget(form.numero, {'attr': {
+                'class':'required form-control',
+              }}) }}
+            </div>
+            <div class="form-group">
+              {{ form_label(form.patient) }}
+              {{ form_widget(form.patient, {'attr': {
+                'class':'required form-control',
+              }}) }}
+            </div>
+            <div class="form-group">
+              {{ form_label(form.description_dossier) }}
+              {{ form_widget(form.description_dossier, {'attr': {
+                'class':'required form-control',
+              }}) }}
+            </div>
+
+            {{ form_widget(form.editer, {'attr': {'class':'btn btn-primary'}}) }}
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Dossier;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -13,8 +14,9 @@ class DossierType extends AbstractType
     {
         $builder
             ->add('description_dossier')
-            ->add('date_creation')
             ->add('patient')
+            ->add('numero')
+            ->add('editer', SubmitType::class)
         ;
     }
 

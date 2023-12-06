@@ -442,4 +442,9 @@ class Patient implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+    public function __toString()
+    {
+        return $this->nom_patient . " " . $this->postnom_patient . " " . $this->prenom_patient;
+    }
 }

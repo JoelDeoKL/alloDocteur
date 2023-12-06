@@ -15,6 +15,7 @@
               <table class="table table-striped">
                 <thead>
                 <tr>
+                  <th>Numero</th>
                   <th>Patient</th>
                   <th>Description</th>
                   <th>Date creation</th>
@@ -24,9 +25,10 @@
                 <tbody>
                 {% for dossier in dossiers %}
                   <tr>
+                    <td>{{ dossier.numero }}</td>
                     <td>{{ dossier.patient }}</td>
-                    <td>{{ dossier.description_dossier }}</td>
-                    <td>{{ dossier.date_creation }}</td>
+                    <td>{{ dossier.descriptionDossier }}</td>
+                    <td>{{ dossier.dateCreation|date('Y-m-d') }}</td>
                     <td>
                       <a href="" class="btn btn-primary">Voir</a>
                       <a href="{{ path("editer_dossier", {id: dossier.id}) }}" class="btn btn-primary">Modifier</a>
