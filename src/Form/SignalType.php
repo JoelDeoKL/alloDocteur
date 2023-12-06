@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Signal;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -16,6 +17,7 @@ class SignalType extends AbstractType
             ->add('date_signal')
             ->add('patient')
             ->add('personnel')
+            ->add('editer', SubmitType::class)
         ;
     }
 
