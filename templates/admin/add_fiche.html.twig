@@ -1,6 +1,6 @@
 {% extends 'admin_template.html.twig' %}
 
-{% block title %}ApproManager - Ajouter Dossier{% endblock %}
+{% block title %}ApproManager - Ajouter Fiche{% endblock %}
 
 {% block body %}
 
@@ -11,7 +11,7 @@
       <div class="col-md-12 grid-margin stretch-card">
         <div class="card">
           <div class="card-body">
-            <h4 class="card-title">Formulaire d'ajout d'un dossier</h4>
+            <h4 class="card-title">Formulaire de création d'une fiche</h4>
             <p class="card-description">
               Remplir ce formulaire
             </p>
@@ -19,20 +19,56 @@
               'class':'forms-sample',
             }}) }}
             <div class="form-group">
-              {{ form_label(form.numero) }}
-              {{ form_widget(form.numero, {'attr': {
-                'class':'required form-control',
-              }}) }}
-            </div>
-            <div class="form-group">
               {{ form_label(form.patient) }}
               {{ form_widget(form.patient, {'attr': {
                 'class':'required form-control',
               }}) }}
             </div>
             <div class="form-group">
-              {{ form_label(form.description_dossier) }}
-              {{ form_widget(form.description_dossier, {'attr': {
+              {{ form_label(form.date_naissance) }}
+              {{ form_widget(form.date_naissance, {'attr': {
+                'class':'required form-control',
+              }}) }}
+            </div>
+            <div class="form-group">
+              {{ form_label(form.adresse_patient) }}
+              {{ form_widget(form.adresse_patient, {'attr': {
+                'class':'required form-control',
+              }}) }}
+            </div>
+            <div class="form-group">
+              {{ form_label(form.date_entre) }}
+              {{ form_widget(form.date_entre, {'attr': {
+                'class':'required form-control',
+              }}) }}
+            </div>
+            <div class="form-group">
+              {{ form_label(form.date_sortie) }}
+              {{ form_widget(form.date_sortie, {'attr': {
+                'class':'required form-control',
+              }}) }}
+            </div>
+            <div class="form-group">
+              {{ form_label(form.nom_conjoint) }}
+              {{ form_widget(form.nom_conjoint, {'attr': {
+                'class':'required form-control',
+              }}) }}
+            </div>
+            <div class="form-group">
+              {{ form_label(form.service) }}
+              {{ form_widget(form.service, {'attr': {
+                'class':'required form-control',
+              }}) }}
+            </div>
+            <div class="form-group">
+              {{ form_label(form.observation) }}
+              {{ form_widget(form.observation, {'attr': {
+                'class':'required form-control',
+              }}) }}
+            </div>
+            <div class="form-group">
+              {{ form_label(form.dossier) }}
+              {{ form_widget(form.dossier, {'attr': {
                 'class':'required form-control',
               }}) }}
             </div>

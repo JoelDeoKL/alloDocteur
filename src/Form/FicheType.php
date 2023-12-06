@@ -4,6 +4,8 @@ namespace App\Form;
 
 use App\Entity\Fiche;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -17,12 +19,21 @@ class FicheType extends AbstractType
             ->add('date_entre')
             ->add('date_sortie')
             ->add('nom_conjoint')
-            ->add('service')
+            ->add('service', ChoiceType::class, [
+                'choices' => [
+                    'Stromato' => 'Stromato',
+                    'Pédiatrie' => 'Pédiatrie',
+                    'Gyneco' => 'Gyneco',
+                    'Medecine interne' => 'Medecine interne',
+                    'Dentisterie' => 'Dentisterie',
+                    'Ophtamoligie' => 'Ophtamoligie',
+                ],
+            ])
             ->add('observation')
-            ->add('date_creation')
             ->add('dossier')
             ->add('patient')
             ->add('personnel')
+            ->add('editer', SubmitType::class)
         ;
     }
 
