@@ -39,7 +39,7 @@ class ExamenController extends AbstractController
         if($form->isSubmitted()){
 
             $dateD = new \DateTime();
-            $examen->setDateCreation($dateD);
+            $examen->setDateExamen($dateD);
 
             $manager = $doctrine->getManager();
             $manager->persist($examen);

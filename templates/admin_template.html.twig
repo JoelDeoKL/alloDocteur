@@ -131,6 +131,47 @@
                         <span class="menu-title">Tableau de gestion</span>
                     </a>
                 </li>
+                <li class="nav-item nav-category">Central</li>
+                <li class="nav-item">
+                    <a class="nav-link" data-bs-toggle="collapse" href="#form-elements" aria-expanded="false" aria-controls="form-elements">
+                        <i class="menu-icon mdi mdi-card-text-outline"></i>
+                        <span class="menu-title">Patients</span>
+                        <i class="menu-arrow"></i>
+                    </a>
+                    <div class="collapse" id="form-elements">
+                        <ul class="nav flex-column sub-menu">
+                            <li class="nav-item"><a class="nav-link" href="{{ path('patients') }}">Voir les patients</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{{ path('editer_patient') }}">Prendre informations</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-bs-toggle="collapse" href="#tables" aria-expanded="false" aria-controls="tables">
+                        <i class="menu-icon mdi mdi-table"></i>
+                        <span class="menu-title">Personnels</span>
+                        <i class="menu-arrow"></i>
+                    </a>
+                    <div class="collapse" id="tables">
+                        <ul class="nav flex-column sub-menu">
+                            <li class="nav-item"> <a class="nav-link" href="{{ path('personnels') }}">Voir les personnels</a></li>
+                            <li class="nav-item"> <a class="nav-link" href="{{ path('editer_personnel') }}">Créer personnel</a></li>
+                            <li class="nav-item"> <a class="nav-link" href="{{ path('assigner_medecin') }}">Assigner personnel</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-bs-toggle="collapse" href="#icons" aria-expanded="false" aria-controls="icons">
+                        <i class="menu-icon mdi mdi-layers-outline"></i>
+                        <span class="menu-title">Dossiers</span>
+                        <i class="menu-arrow"></i>
+                    </a>
+                    <div class="collapse" id="icons">
+                        <ul class="nav flex-column sub-menu">
+                            <li class="nav-item"> <a class="nav-link" href="{{ path('dossiers') }}">Voir les dossiers</a></li>
+                            <li class="nav-item"> <a class="nav-link" href="{{ path('editer_dossier') }}">Créer dossier</a></li>
+                        </ul>
+                    </div>
+                </li>
                 <li class="nav-item nav-category">SUIVIS</li>
                 <li class="nav-item">
                     <a class="nav-link" data-bs-toggle="collapse" href="#form-elements" aria-expanded="false" aria-controls="form-elements">
@@ -171,7 +212,6 @@
                         </ul>
                     </div>
                 </li>
-                <li class="nav-item nav-category">Central</li>
                 <li class="nav-item">
                     <a class="nav-link" data-bs-toggle="collapse" href="#form-elements" aria-expanded="false" aria-controls="form-elements">
                         <i class="menu-icon mdi mdi-card-text-outline"></i>

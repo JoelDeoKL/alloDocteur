@@ -15,7 +15,6 @@ class ExamenType extends AbstractType
         $builder
             ->add('nom_examen')
             ->add('description_examen')
-            ->add('date_examen')
             ->add('personnel')
             ->add('patient')
             ->add('editer', SubmitType::class)
