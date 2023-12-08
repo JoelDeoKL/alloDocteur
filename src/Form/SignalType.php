@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Signal;
+use App\Entity\Signalement;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -24,7 +25,7 @@ class SignalType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Signal::class,
+            'data_class' => Signalement::class,
         ]);
     }
 }

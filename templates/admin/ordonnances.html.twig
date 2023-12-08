@@ -27,8 +27,8 @@
                   <tr>
                     <td>{{ ordonnance.patient }}</td>
                     <td>{{ ordonnance.personnel }}</td>
-                    <td>{{ ordonnance.ordonnance }}</td>
-                    <td>{{ ordonnance.date_orodannance|date('Y-m-d') }}</td>
+                    <td>{{ ordonnance.ordannance }}</td>
+                    <td>{{ ordonnance.dateOrdonnance|date('Y-m-d') }}</td>
                     <td>
                       <a href="" class="btn btn-primary">Voir</a>
                       <a href="{{ path("editer_ordonnance", {id: ordonnance.id}) }}" class="btn btn-primary">Modifier</a>

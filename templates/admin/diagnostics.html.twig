@@ -1,6 +1,6 @@
 {% extends 'admin_template.html.twig' %}
 
-{% block title %} AlloDocteur - Signals {% endblock %}
+{% block title %} AlloDocteur - Diagnostics {% endblock %}
 
 {% block body %}
 
@@ -10,28 +10,28 @@
       <div class="col-lg-12 grid-margin stretch-card">
         <div class="card">
           <div class="card-body">
-            <h4 class="card-title">Liste des signals que nous avons recus</h4>
+            <h4 class="card-title">Liste des Diagnostics établis</h4>
             <div class="table-responsive">
               <table class="table table-striped">
                 <thead>
                 <tr>
+                  <th>Diagnostics</th>
                   <th>Patient</th>
                   <th>Personnel</th>
-                  <th>Observation</th>
-                  <th>Date signal</th>
+                  <th>Date creation</th>
                   <th>Actions</th>
                 </tr>
                 </thead>
                 <tbody>
-                {% for signal in signals %}
+                {% for diagnostic in diagnostics %}
                   <tr>
-                    <td>{{ signal.patient }}</td>
-                    <td>{{ signal.personnel }}</td>
-                    <td>{{ signal.observation }}</td>
-                    <td>{{ signal.dateSignal|date('Y-m-d') }}</td>
+                    <td>{{ diagnostic.nomDiagnostic }}</td>
+                    <td>{{ diagnostic.patient }}</td>
+                    <td>{{ diagnostic.personnel }}</td>
+                    <td>{{ diagnostic.dateCreation|date('Y-m-d') }}</td>
                     <td>
                       <a href="" class="btn btn-primary">Voir</a>
-                      <a href="{{ path("editer_signal", {id: signal.id}) }}" class="btn btn-primary">Modifier</a>
+                      <a href="{{ path("editer_diagnostic", {id: diagnostic.id}) }}" class="btn btn-primary">Modifier</a>
                       <a href="" class="btn btn-primary">Supprimer</a>
                     </td>
                   </tr>

@@ -19,8 +19,8 @@
               'class':'forms-sample',
             }}) }}
             <div class="form-group">
-              {{ form_label(form.numero) }}
-              {{ form_widget(form.numero, {'attr': {
+              {{ form_label(form.nom_diagnostic) }}
+              {{ form_widget(form.nom_diagnostic, {'attr': {
                 'class':'required form-control',
               }}) }}
             </div>
@@ -31,8 +31,14 @@
               }}) }}
             </div>
             <div class="form-group">
-              {{ form_label(form.description_dossier) }}
-              {{ form_widget(form.description_dossier, {'attr': {
+              {{ form_label(form.personnel) }}
+              {{ form_widget(form.personnel, {'attr': {
+                'class':'required form-control',
+              }}) }}
+            </div>
+            <div class="form-group">
+              {{ form_label(form.description_diagnostic) }}
+              {{ form_widget(form.description_diagnostic, {'attr': {
                 'class':'required form-control',
               }}) }}
             </div>

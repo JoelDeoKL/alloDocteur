@@ -2,27 +2,27 @@
 
 namespace App\Repository;
 
-use App\Entity\Signal;
+use App\Entity\Signalement;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<Signal>
+ * @extends ServiceEntityRepository<Signalement>
  *
- * @method Signal|null find($id, $lockMode = null, $lockVersion = null)
- * @method Signal|null findOneBy(array $criteria, array $orderBy = null)
- * @method Signal[]    findAll()
- * @method Signal[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Signalement|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Signalement|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Signalement[]    findAll()
+ * @method Signalement[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class SignalRepository extends ServiceEntityRepository
+class SignalementRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Signal::class);
+        parent::__construct($registry, Signalement::class);
     }
 
 //    /**
-//     * @return Signal[] Returns an array of Signal objects
+//     * @return Signalement[] Returns an array of Signalement objects
 //     */
 //    public function findByExampleField($value): array
 //    {
@@ -36,7 +36,7 @@ class SignalRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?Signal
+//    public function findOneBySomeField($value): ?Signalement
 //    {
 //        return $this->createQueryBuilder('s')
 //            ->andWhere('s.exampleField = :val')

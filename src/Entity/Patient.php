@@ -66,14 +66,14 @@ class Patient implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'patient', targetEntity: Examen::class)]
     private Collection $examens;
 
-    #[ORM\OneToMany(mappedBy: 'patient', targetEntity: Signal::class)]
-    private Collection $signals;
-
     #[ORM\OneToMany(mappedBy: 'patient', targetEntity: Ordonnance::class)]
     private Collection $ordonnances;
 
     #[ORM\OneToMany(mappedBy: 'patient', targetEntity: Fiche::class)]
     private Collection $fiches;
+
+    #[ORM\OneToMany(mappedBy: 'patient', targetEntity: Signalement::class)]
+    private Collection $signalements;
 
     public function __construct()
     {
@@ -83,6 +83,7 @@ class Patient implements UserInterface, PasswordAuthenticatedUserInterface
         $this->signals = new ArrayCollection();
         $this->ordonnances = new ArrayCollection();
         $this->fiches = new ArrayCollection();
+        $this->signalements = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -354,36 +355,6 @@ class Patient implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @return Collection<int, Signal>
-     */
-    public function getSignals(): Collection
-    {
-        return $this->signals;
-    }
-
-    public function addSignal(Signal $signal): static
-    {
-        if (!$this->signals->contains($signal)) {
-            $this->signals->add($signal);
-            $signal->setPatient($this);
-        }
-
-        return $this;
-    }
-
-    public function removeSignal(Signal $signal): static
-    {
-        if ($this->signals->removeElement($signal)) {
-            // set the owning side to null (unless already changed)
-            if ($signal->getPatient() === $this) {
-                $signal->setPatient(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
      * @return Collection<int, Ordonnance>
      */
     public function getOrdonnances(): Collection
@@ -446,5 +417,35 @@ class Patient implements UserInterface, PasswordAuthenticatedUserInterface
     public function __toString()
     {
         return $this->nom_patient . " " . $this->postnom_patient . " " . $this->prenom_patient;
+    }
+
+    /**
+     * @return Collection<int, Signalement>
+     */
+    public function getSignalements(): Collection
+    {
+        return $this->signalements;
+    }
+
+    public function addSignalement(Signalement $signalement): static
+    {
+        if (!$this->signalements->contains($signalement)) {
+            $this->signalements->add($signalement);
+            $signalement->setPatient($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSignalement(Signalement $signalement): static
+    {
+        if ($this->signalements->removeElement($signalement)) {
+            // set the owning side to null (unless already changed)
+            if ($signalement->getPatient() === $this) {
+                $signalement->setPatient(null);
+            }
+        }
+
+        return $this;
     }
 }

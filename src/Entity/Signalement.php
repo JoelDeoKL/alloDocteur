@@ -2,22 +2,22 @@
 
 namespace App\Entity;
 
-use App\Repository\SignalRepository;
+use App\Repository\SignalementRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: SignalRepository::class)]
-class Signal
+#[ORM\Entity(repositoryClass: SignalementRepository::class)]
+class Signalement
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\ManyToOne(inversedBy: 'signals')]
+    #[ORM\ManyToOne(inversedBy: 'signalements')]
     private ?Patient $patient = null;
 
-    #[ORM\ManyToOne(inversedBy: 'signals')]
+    #[ORM\ManyToOne(inversedBy: 'signalements')]
     private ?Personnel $personnel = null;
 
     #[ORM\Column(type: Types::TEXT)]

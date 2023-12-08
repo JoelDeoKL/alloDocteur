@@ -39,7 +39,7 @@ class OrdonnanceController extends AbstractController
         if($form->isSubmitted()){
 
             $dateD = new \DateTime();
-            $ordonnance->setDateCreation($dateD);
+            $ordonnance->setDateOrdonnance($dateD);
 
             $manager = $doctrine->getManager();
             $manager->persist($ordonnance);
