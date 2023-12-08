@@ -11,8 +11,12 @@ class HomeController extends AbstractController
     #[Route('/admin', name: 'admin')]
     public function index(): Response
     {
-        return $this->render('admin/index.html.twig', [
-            'controller_name' => 'HomeController',
-        ]);
+        return $this->render('admin/index.html.twig');
+    }
+
+    #[Route('/patient', name: 'patient')]
+    public function patient(): Response
+    {
+        return $this->render('patient/index.html.twig');
     }
 }

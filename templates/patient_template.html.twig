@@ -61,7 +61,7 @@
         <div class="navbar-menu-wrapper d-flex align-items-top">
             <ul class="navbar-nav">
                 <li class="nav-item font-weight-semibold d-none d-lg-block ms-0">
-                    <h1 class="welcome-text">Bienvenue sur le Portail Administrateur<span class="text-black fw-bold"> {% if app.user %} ({{ app.user.pseudo }}) {% endif %}</span></h1>
+                    <h1 class="welcome-text">Bienvenue sur le Portail Patient<span class="text-black fw-bold"> {% if app.user %} ({{ app.user.pseudo }}) {% endif %}</span></h1>
                     <h3 class="welcome-sub-text">Votre page de gestion </h3>
                 </li>
             </ul>
@@ -140,8 +140,7 @@
                     </a>
                     <div class="collapse" id="form-elements">
                         <ul class="nav flex-column sub-menu">
-                            <li class="nav-item"><a class="nav-link" href="{{ path('examens') }}">Voir les examens</a></li>
-                            <li class="nav-item"><a class="nav-link" href="{{ path('editer_examen') }}">Enregistrer examen</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{{ path('mes_examens') }}">Voir mes examens</a></li>
                         </ul>
                     </div>
                 </li>
@@ -153,8 +152,7 @@
                     </a>
                     <div class="collapse" id="tables">
                         <ul class="nav flex-column sub-menu">
-                            <li class="nav-item"> <a class="nav-link" href="{{ path('diagnostics') }}">Voir les Diagnostics</a></li>
-                            <li class="nav-item"> <a class="nav-link" href="{{ path('editer_diagnostic') }}">Ajouter un diagnostic</a></li>
+                            <li class="nav-item"> <a class="nav-link" href="{{ path('mes_diagnostics') }}">Voir les Diagnostics</a></li>
                         </ul>
                     </div>
                 </li>
@@ -166,8 +164,7 @@
                     </a>
                     <div class="collapse" id="icons">
                         <ul class="nav flex-column sub-menu">
-                            <li class="nav-item"> <a class="nav-link" href="{{ path('fiches') }}">Voir les fiches</a></li>
-                            <li class="nav-item"> <a class="nav-link" href="{{ path('editer_fiche') }}">Créer Fiche</a></li>
+                            <li class="nav-item"> <a class="nav-link" href="{{ path('mes_fiches') }}">Voir les fiches</a></li>
                         </ul>
                     </div>
                 </li>
@@ -180,8 +177,7 @@
                     </a>
                     <div class="collapse" id="form-elements">
                         <ul class="nav flex-column sub-menu">
-                            <li class="nav-item"><a class="nav-link" href="{{ path('ordonnances') }}">Voir les ordonnances</a></li>
-                            <li class="nav-item"><a class="nav-link" href="{{ path('editer_ordonnance') }}">Prescrire Ordonnance</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{{ path('mes_ordonnances') }}">Voir les ordonnances</a></li>
                         </ul>
                     </div>
                 </li>
@@ -194,6 +190,7 @@
                     <div class="collapse" id="tables">
                         <ul class="nav flex-column sub-menu">
                             <li class="nav-item"> <a class="nav-link" href="{{ path('signals') }}">Voir les signals</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{{ path('editer_signal') }}">Signaler Medecin</a></li>
                         </ul>
                     </div>
                 </li>

@@ -1,20 +1,124 @@
-{% extends 'base.html.twig' %}
+{% extends 'patient_template.html.twig' %}
 
-{% block title %}Hello PatientController!{% endblock %}
+{% block title %} AlloDocteur - Accueil {% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/symfony/alloDocteur/src/Controller/PatientController.php'|file_link(0) }}">src/Controller/PatientController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/symfony/alloDocteur/templates/patient/index.html.twig'|file_link(0) }}">templates/patient/index.html.twig</a></code></li>
-    </ul>
-</div>
+      <!-- partial -->
+      <div class="main-panel">
+        <div class="content-wrapper">
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="home-tab">
+                <div class="d-sm-flex align-items-center justify-content-between border-bottom">
+                  <ul class="nav nav-tabs" role="tablist">
+                    <li class="nav-item">
+                      <a class="nav-link active ps-0" id="home-tab" data-bs-toggle="tab" href="#overview" role="tab" aria-controls="overview" aria-selected="true">Tableau de bord</a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="tab-content tab-content-basic">
+                  <div class="tab-pane fade show active" id="overview" role="tabpanel" aria-labelledby="overview"> 
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <div class="statistics-details d-flex align-items-center justify-content-between">
+                          <div>
+                            <p class="statistics-title">Nos Medecins</p>
+                            <h3 class="rate-percentage">32</h3>
+                          </div>
+                          <div>
+                            <p class="statistics-title">Nos Patients</p>
+                            <h3 class="rate-percentage">7</h3>
+                          </div>
+                          <div>
+                            <p class="statistics-title">Dossiers</p>
+                            <h3 class="rate-percentage">68</h3>
+                          </div>
+                          <div class="d-none d-md-block">
+                            <p class="statistics-title">Diagnostics</p>
+                            <h3 class="rate-percentage">20</h3>
+                          </div>
+                        </div>
+                      </div>
+                    </div> 
+                    <div class="row">
+                      <div class="col-lg-8 d-flex flex-column">
+                        <div class="row flex-grow">
+                          <div class="col-12 grid-margin stretch-card">
+                            <div class="card card-rounded">
+                              <div class="card-body">
+                                <h5>Structure Médical : Centre de santé Urabain</h5><br>
+                                <h5>Dénomitition : Bon Berger</h5><br>
+                                <h5>Médecin Directeur : Dr. Cecile K.</h5><br>
+                                <h5>Adresse : 22, avenue Nsimba Q/Craa C/Annexe</h5><br>
+                                <h5>Date de création : 11/04/2014</h5>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-lg-4 d-flex flex-column">
+                        <div class="row flex-grow">
+                          <div class="col-12 grid-margin stretch-card">
+                            <div class="card card-rounded">
+                              <div class="card-body">
+                                <div class="row">
+                                  <div class="col-lg-12">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                      <h4 class="card-title card-title-dash">Mes Taches</h4>
+                                      <div class="add-items d-flex mb-0">
+                                        <!-- <input type="text" class="form-control todo-list-input" placeholder="What do you need to do today?"> -->
+                                        <button class="add btn btn-icons btn-rounded btn-primary todo-list-add-btn text-white me-0 pl-12p"><i class="mdi mdi-plus"></i></button>
+                                      </div>
+                                    </div>
+                                    <div class="list-wrapper">
+                                      <ul class="todo-list todo-list-rounded">
+                                        <li class="d-block">
+                                          <div class="form-check w-100">
+                                            <label class="form-check-label">
+                                              <input class="checkbox" type="checkbox">Créer les comptes des médecins<i class="input-helper rounded"></i>
+                                            </label>
+                                          </div>
+                                        </li>
+                                        <li class="d-block">
+                                          <div class="form-check w-100">
+                                            <label class="form-check-label">
+                                              <input class="checkbox" type="checkbox">Prendre les informations des patients<i class="input-helper rounded"></i>
+                                            </label>
+                                          </div>
+                                        </li>
+                                        <li>
+                                          <div class="form-check w-100">
+                                            <label class="form-check-label">
+                                              <input class="checkbox" type="checkbox"> Constituer les dossiers <i class="input-helper rounded"></i>
+                                            </label>
+                                          </div>
+                                        </li>
+                                        <li class="border-bottom-0">
+                                          <div class="form-check w-100">
+                                            <label class="form-check-label">
+                                              <input class="checkbox" type="checkbox">Assigner Médecin <i class="input-helper rounded"></i>
+                                            </label>
+                                          </div>
+                                        </li>
+                                      </ul>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- content-wrapper ends -->
+        <!-- partial:partials/_footer.html -->
+        <!-- partial -->
+      </div>
 {% endblock %}
