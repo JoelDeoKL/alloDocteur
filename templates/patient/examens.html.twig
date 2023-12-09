@@ -1,0 +1,47 @@
+{% extends 'patient_template.html.twig' %}
+
+{% block title %} AlloDocteur - Examens {% endblock %}
+
+{% block body %}
+
+  <div class="main-panel">
+  <div class="content-wrapper">
+    <div class="row">
+      <div class="col-lg-12 grid-margin stretch-card">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">Liste de tous les examens</h4>
+            <div class="table-responsive">
+              <table class="table table-striped">
+                <thead>
+                <tr>
+                  <th>Nom examen</th>
+                  <th>Description examen</th>
+                  <th>Patient</th>
+                  <th>Personnel</th>
+                  <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for examen in examens %}
+                  <tr>
+                    <td>{{ examen.nomExamen }}</td>
+                    <td>{{ examen.descriptionExamen }}</td>
+                    <td>{{ examen.patient }}</td>
+                    <td>{{ examen.personnel }}</td>
+                    <td>
+                      <a href="" class="btn btn-primary">Voir</a>
+                      <a href="{{ path("editer_examen", {id: examen.id}) }}" class="btn btn-primary">Modifier</a>
+                      <a href="" class="btn btn-primary">Supprimer</a>
+                    </td>
+                  </tr>
+                {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

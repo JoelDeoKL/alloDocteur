@@ -32,7 +32,7 @@ class DossierController extends AbstractController
 
         $dossiers = $entityManager->getRepository(Dossier::class)->findBy(["patient" => $patient[0]]);
 
-        return $this->render('patient/dossiers.html.twig', ['dossiers' => $dossiers]);
+        return $this->render('patient/dossier.html.twig', ['dossiers' => $dossiers]);
     }
 
     #[Route('/editer_dossier/{id?0}', name: 'editer_dossier')]
