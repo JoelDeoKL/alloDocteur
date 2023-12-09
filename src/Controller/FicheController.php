@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Fiche;
+use App\Entity\Patient;
 use App\Form\FicheType;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
@@ -20,6 +21,17 @@ class FicheController extends AbstractController
         $fiches = $entityManager->getRepository(Fiche::class)->findAll();
 
         return $this->render('admin/fiches.html.twig', ['fiches' => $fiches]);
+    }
+
+    #[Route('/mes_fiches', name: 'mes_fiches')]
+    public function mes_fiches(EntityManagerInterface $entityManager, Request $request): Response
+    {
+        $session = $request->getSession();
+        $patient = $entityManager->getRepository(Patient::class)->findBy(["email" => $session->all()["_security.last_username"]]);
+
+        $fiches = $entityManager->getRepository(Fiche::class)->findBy(["patient" => $patient[0]]);
+
+        return $this->render('patient/fiches.html.twig', ['fiches' => $fiches]);
     }
 
     #[Route('/editer_fiche/{id?0}', name: 'editer_fiche')]

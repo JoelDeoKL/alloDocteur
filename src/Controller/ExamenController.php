@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Examen;
+use App\Entity\Patient;
 use App\Form\ExamenType;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
@@ -14,12 +15,23 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ExamenController extends AbstractController
 {
-    #[Route('/examens', name: 'examens')]
-    public function examens(EntityManagerInterface $entityManager): Response
+    #[Route('/mes_examens', name: 'mes_examens')]
+    public function mes_examens(EntityManagerInterface $entityManager): Response
     {
         $examens = $entityManager->getRepository(Examen::class)->findAll();
 
         return $this->render('admin/examens.html.twig', ['examens' => $examens]);
+    }
+
+    #[Route('/examens', name: 'examens')]
+    public function examens(EntityManagerInterface $entityManager, Request $request): Response
+    {
+        $session = $request->getSession();
+        $patient = $entityManager->getRepository(Patient::class)->findBy(["email" => $session->all()["_security.last_username"]]);
+
+        $examens = $entityManager->getRepository(Examen::class)->findBy(["patient" => $patient[0]]);
+
+        return $this->render('patient/examens.html.twig', ['examens' => $examens]);
     }
 
     #[Route('/editer_examen/{id?0}', name: 'editer_examen')]

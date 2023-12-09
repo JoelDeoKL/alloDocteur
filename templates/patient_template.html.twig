@@ -133,6 +133,18 @@
                 </li>
                 <li class="nav-item nav-category">SUIVIS</li>
                 <li class="nav-item">
+                    <a class="nav-link" data-bs-toggle="collapse" href="#personnel" aria-expanded="false" aria-controls="tables">
+                        <i class="menu-icon mdi mdi-table"></i>
+                        <span class="menu-title">Medécin</span>
+                        <i class="menu-arrow"></i>
+                    </a>
+                    <div class="collapse" id="personnel">
+                        <ul class="nav flex-column sub-menu">
+                            <li class="nav-item"> <a class="nav-link" href="{{ path('personnel') }}">Voir medécins traitant</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" data-bs-toggle="collapse" href="#form-elements" aria-expanded="false" aria-controls="form-elements">
                         <i class="menu-icon mdi mdi-card-text-outline"></i>
                         <span class="menu-title">Examens</span>
@@ -204,6 +216,7 @@
                     <div class="collapse" id="auth">
                         <ul class="nav flex-column sub-menu">
                             <li class="nav-item"> <a class="nav-link" href=""> Mon profil </a></li>
+                            <li class="nav-item"> <a class="nav-link" href="{{ path('mon_dossier') }}"> Mon Dossier </a></li>
                             <li class="nav-item"> <a class="nav-link" href=""> Se deconnecter </a></li>
                         </ul>
                     </div>

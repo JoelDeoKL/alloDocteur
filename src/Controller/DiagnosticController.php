@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Diagnostic;
+use App\Entity\Patient;
 use App\Form\DagnosticType;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
@@ -20,6 +21,17 @@ class DiagnosticController extends AbstractController
         $diagnostics = $entityManager->getRepository(Diagnostic::class)->findAll();
 
         return $this->render('admin/diagnostics.html.twig', ['diagnostics' => $diagnostics]);
+    }
+
+    #[Route('/me_diagnostics', name: 'me_diagnostics')]
+    public function me_diagnostics(EntityManagerInterface $entityManager, Request $request): Response
+    {
+        $session = $request->getSession();
+        $patient = $entityManager->getRepository(Patient::class)->findBy(["email" => $session->all()["_security.last_username"]]);
+
+        $diagnostics = $entityManager->getRepository(Diagnostic::class)->findBy(["patient" => $patient[0]]);
+
+        return $this->render('patient/diagnostics.html.twig', ['diagnostics' => $diagnostics]);
     }
 
     #[Route('/editer_diagnostic/{id?0}', name: 'editer_diagnostic')]

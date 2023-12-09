@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Ordonnance;
+use App\Entity\Patient;
 use App\Form\OrdonnanceType;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
@@ -20,6 +21,17 @@ class OrdonnanceController extends AbstractController
         $ordonnances = $entityManager->getRepository(Ordonnance::class)->findAll();
 
         return $this->render('admin/ordonnances.html.twig', ['ordonnances' => $ordonnances]);
+    }
+
+    #[Route('/mes_ordonnances', name: 'mes_ordonnances')]
+    public function mes_ordonnances(EntityManagerInterface $entityManager, Request $request): Response
+    {
+        $session = $request->getSession();
+        $patient = $entityManager->getRepository(Patient::class)->findBy(["email" => $session->all()["_security.last_username"]]);
+
+        $ordonnances = $entityManager->getRepository(Ordonnance::class)->findBy(["patient" => $patient[0]]);
+
+        return $this->render('patient/ordonnances.html.twig', ['ordonnances' => $ordonnances]);
     }
 
     #[Route('/editer_ordonnance/{id?0}', name: 'editer_ordonnance')]

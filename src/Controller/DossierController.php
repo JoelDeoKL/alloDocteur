@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Dossier;
+use App\Entity\Patient;
 use App\Entity\User;
 use App\Form\DossierType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -21,6 +22,17 @@ class DossierController extends AbstractController
         $dossiers = $entityManager->getRepository(Dossier::class)->findAll();
 
         return $this->render('admin/dossiers.html.twig', ['dossiers' => $dossiers]);
+    }
+
+    #[Route('/mon_dossier', name: 'mon_dossier')]
+    public function mon_dossier(EntityManagerInterface $entityManager, Request $request): Response
+    {
+        $session = $request->getSession();
+        $patient = $entityManager->getRepository(Patient::class)->findBy(["email" => $session->all()["_security.last_username"]]);
+
+        $dossiers = $entityManager->getRepository(Dossier::class)->findBy(["patient" => $patient[0]]);
+
+        return $this->render('patient/dossiers.html.twig', ['dossiers' => $dossiers]);
     }
 
     #[Route('/editer_dossier/{id?0}', name: 'editer_dossier')]

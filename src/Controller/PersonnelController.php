@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Patient;
 use App\Entity\Personnel;
 use App\Entity\User;
 use App\Form\PersonnelType;
@@ -12,6 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use function Symfony\Component\DomCrawler\add;
 
 class PersonnelController extends AbstractController
 {
@@ -21,6 +23,18 @@ class PersonnelController extends AbstractController
         $personnels = $entityManager->getRepository(Personnel::class)->findAll();
 
         return $this->render('admin/personnels.html.twig', ['personnels' => $personnels]);
+    }
+
+    #[Route('/personnel', name: 'personnel')]
+    public function personnel(EntityManagerInterface $entityManager, Request $request): Response
+    {
+        $session = $request->getSession();
+        $patient = $entityManager->getRepository(Patient::class)->findBy(["email" => $session->all()["_security.last_username"]]);
+
+        $personnel = $entityManager->getRepository(Personnel::class)->findBy(["id" => $patient[0]->getId()]);
+
+
+        return $this->render('patient/personnels.html.twig', ['personnel' => $personnel]);
     }
 
     #[Route('/editer_personnel/{id?0}', name: 'editer_personnel')]
