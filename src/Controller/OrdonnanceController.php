@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Ordonnance;
 use App\Entity\Patient;
+use App\Entity\Personnel;
 use App\Form\OrdonnanceType;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
@@ -32,6 +33,17 @@ class OrdonnanceController extends AbstractController
         $ordonnances = $entityManager->getRepository(Ordonnance::class)->findBy(["patient" => $patient[0]]);
 
         return $this->render('patient/ordonnances.html.twig', ['ordonnances' => $ordonnances]);
+    }
+
+    #[Route('/nos_ordonnances', name: 'nos_ordonnances')]
+    public function nos_ordonnances(EntityManagerInterface $entityManager, Request $request): Response
+    {
+        $session = $request->getSession();
+        $personnel = $entityManager->getRepository(Personnel::class)->findBy(["email" => $session->all()["_security.last_username"]]);
+
+        $ordonnances = $entityManager->getRepository(Ordonnance::class)->findBy(["personnel" => $personnel[0]]);
+
+        return $this->render('personnel/ordonnances.html.twig', ['ordonnances' => $ordonnances]);
     }
 
     #[Route('/editer_ordonnance/{id?0}', name: 'editer_ordonnance')]
@@ -68,7 +80,7 @@ class OrdonnanceController extends AbstractController
 
             return $this->redirectToRoute("ordonnances");
         }else{
-            return $this->render('admin/add_ordonnance.html.twig', [
+            return $this->render('personnel/add_ordonnance.html.twig', [
                 'form' => $form->createView()
             ]);
         }
@@ -81,7 +93,17 @@ class OrdonnanceController extends AbstractController
             $this->addFlash('error', "Ce ordonnance n'existe pas !");
             return $this->redirectToRoute("ordonnances");
         }
-        return $this->render('admin/ordonnance_details.html.twig', ['ordonnance' => $ordonnance]);
+        return $this->render('admin/details_ordonnance.html.twig', ['ordannance' => $ordonnance]);
+    }
+
+    #[Route('/ordonnance_detail/{id<\d+>}', name: 'ordonnance_detail')]
+    public function ordonnance_detail(ManagerRegistry $doctrine, Ordonnance $ordonnance= null, $id): Response
+    {
+        if(!$ordonnance){
+            $this->addFlash('error', "Ce ordonnance n'existe pas !");
+            return $this->redirectToRoute("ordonnances");
+        }
+        return $this->render('personnel/details_ordonnance.html.twig', ['ordannance' => $ordonnance]);
     }
 
     #[Route('/delete_ordonnance/{id?0}', name: 'delete_ordonnance')]

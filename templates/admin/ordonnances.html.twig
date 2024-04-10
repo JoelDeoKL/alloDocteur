@@ -30,9 +30,7 @@
                     <td>{{ ordonnance.ordannance }}</td>
                     <td>{{ ordonnance.dateOrdonnance|date('Y-m-d') }}</td>
                     <td>
-                      <a href="" class="btn btn-primary">Voir</a>
-                      <a href="{{ path("editer_ordonnance", {id: ordonnance.id}) }}" class="btn btn-primary">Modifier</a>
-                      <a href="" class="btn btn-primary">Supprimer</a>
+                      <a href="{{ path("detail_ordonnance", {id: ordonnance.id}) }}" class="btn btn-primary">Voir</a>
                     </td>
                   </tr>
                 {% endfor %}

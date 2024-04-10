@@ -1,0 +1,47 @@
+{% extends 'medecin_template.html.twig' %}
+
+{% block title %} AlloDocteur - Patients {% endblock %}
+
+{% block body %}
+
+  <div class="main-panel">
+  <div class="content-wrapper">
+    <div class="row">
+      <div class="col-lg-12 grid-margin stretch-card">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">Liste de nos patients</h4>
+            <div class="table-responsive">
+              <table class="table table-striped">
+                <thead>
+                <tr>
+                  <th>Noms</th>
+                  <th>Description</th>
+                  <th>Age</th>
+                  <th>Téléphone</th>
+                  <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for patient in patients %}
+                  <tr>
+                    <td>{{ patient.nomPatient }} {{ patient.postnomPatient }} {{ patient.prenomPatient }}</td>
+                    <td>{{ patient.descriptionPatient }}</td>
+                    <td>{{ patient.age }} ans</td>
+                    <td>{{ patient.telephone }}</td>
+                    <td>
+                      <a href="{{ path("patient_detail", {id: patient.id}) }}" class="btn btn-primary">Voir</a>
+                      <a href="{{ path("editer_patient", {id: patient.id}) }}" class="btn btn-primary">Modifier</a>
+                      <a href="{{ path("delete_patient", {id: patient.id}) }}" class="btn btn-primary">Supprimer</a>
+                    </td>
+                  </tr>
+                {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

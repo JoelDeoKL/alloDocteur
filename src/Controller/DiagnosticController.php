@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Diagnostic;
 use App\Entity\Patient;
+use App\Entity\Personnel;
 use App\Form\DagnosticType;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
@@ -23,8 +24,8 @@ class DiagnosticController extends AbstractController
         return $this->render('admin/diagnostics.html.twig', ['diagnostics' => $diagnostics]);
     }
 
-    #[Route('/me_diagnostics', name: 'me_diagnostics')]
-    public function me_diagnostics(EntityManagerInterface $entityManager, Request $request): Response
+    #[Route('/mes_diagnostics', name: 'mes_diagnostics')]
+    public function mes_diagnostics(EntityManagerInterface $entityManager, Request $request): Response
     {
         $session = $request->getSession();
         $patient = $entityManager->getRepository(Patient::class)->findBy(["email" => $session->all()["_security.last_username"]]);
@@ -32,6 +33,17 @@ class DiagnosticController extends AbstractController
         $diagnostics = $entityManager->getRepository(Diagnostic::class)->findBy(["patient" => $patient[0]]);
 
         return $this->render('patient/diagnostics.html.twig', ['diagnostics' => $diagnostics]);
+    }
+
+    #[Route('/nos_diagnostics', name: 'nos_diagnostics')]
+    public function nos_diagnostics(EntityManagerInterface $entityManager, Request $request): Response
+    {
+        $session = $request->getSession();
+        $personnel = $entityManager->getRepository(Personnel::class)->findBy(["email" => $session->all()["_security.last_username"]]);
+
+        $diagnostics = $entityManager->getRepository(Diagnostic::class)->findBy(["personnel" => $personnel[0]]);
+
+        return $this->render('personnel/diagnostics.html.twig', ['diagnostics' => $diagnostics]);
     }
 
     #[Route('/editer_diagnostic/{id?0}', name: 'editer_diagnostic')]
@@ -68,7 +80,7 @@ class DiagnosticController extends AbstractController
 
             return $this->redirectToRoute("diagnostics");
         }else{
-            return $this->render('admin/add_diagnostic.html.twig', [
+            return $this->render('personnel/add_diagnostic.html.twig', [
                 'form' => $form->createView()
             ]);
         }
@@ -81,7 +93,17 @@ class DiagnosticController extends AbstractController
             $this->addFlash('error', "Ce diagnostic n'existe pas !");
             return $this->redirectToRoute("diagnostics");
         }
-        return $this->render('admin/diagnostic_details.html.twig', ['diagnostic' => $diagnostic]);
+        return $this->render('admin/details_diagnostic.html.twig', ['diagnostic' => $diagnostic]);
+    }
+
+    #[Route('/diagnostic_detail/{id<\d+>}', name: 'diagnostic_detail')]
+    public function diagnostic_detail(ManagerRegistry $doctrine, Diagnostic $diagnostic= null, $id): Response
+    {
+        if(!$diagnostic){
+            $this->addFlash('error', "Ce diagnostic n'existe pas !");
+            return $this->redirectToRoute("diagnostics");
+        }
+        return $this->render('personnel/details_diagnostic.html.twig', ['diagnostic' => $diagnostic]);
     }
 
     #[Route('/delete_diagnostic/{id?0}', name: 'delete_diagnostic')]

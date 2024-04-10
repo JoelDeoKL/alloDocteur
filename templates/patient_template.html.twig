@@ -90,7 +90,7 @@
                                 <p class="fw-light text-muted mb-0">{{ app.user.email }}</p>
                             </div>
                             <a class="dropdown-item"><i class="dropdown-item-icon mdi mdi-account-outline text-primary me-2"></i> My Profile <span class="badge badge-pill badge-danger">1</span></a>
-                            <a class="dropdown-item"><i class="dropdown-item-icon mdi mdi-power text-primary me-2"></i>Se deconnecter</a>
+                            <a class="dropdown-item" href="{{ path('app_logout') }}"><i class="dropdown-item-icon mdi mdi-power text-primary me-2"></i>Se deconnecter</a>
                         </div>
                         {% endif %}
                 </li>
@@ -126,7 +126,7 @@
         <nav class="sidebar sidebar-offcanvas" id="sidebar">
             <ul class="nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ path('admin') }}">
+                    <a class="nav-link" href="{{ path('patient') }}">
                         <i class="mdi mdi-grid-large menu-icon"></i>
                         <span class="menu-title">Tableau de gestion</span>
                     </a>
@@ -140,41 +140,42 @@
                     </a>
                     <div class="collapse" id="personnel">
                         <ul class="nav flex-column sub-menu">
-                            <li class="nav-item"> <a class="nav-link" href="{{ path('personnel') }}">Voir medécins traitant</a></li>
+                            <li class="nav-item"> <a class="nav-link" href="{{ path('mon_medecin') }}">Voir medécin traitant</a></li>
+                            <li class="nav-item"> <a class="nav-link" href="{{ path('les_personnels') }}">Voir tous les medécins</a></li>
                         </ul>
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" data-bs-toggle="collapse" href="#form-elements" aria-expanded="false" aria-controls="form-elements">
+                    <a class="nav-link" data-bs-toggle="collapse" href="#examens" aria-expanded="false" aria-controls="form-elements">
                         <i class="menu-icon mdi mdi-card-text-outline"></i>
                         <span class="menu-title">Examens</span>
                         <i class="menu-arrow"></i>
                     </a>
-                    <div class="collapse" id="form-elements">
+                    <div class="collapse" id="examens">
                         <ul class="nav flex-column sub-menu">
                             <li class="nav-item"><a class="nav-link" href="{{ path('mes_examens') }}">Voir mes examens</a></li>
                         </ul>
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" data-bs-toggle="collapse" href="#tables" aria-expanded="false" aria-controls="tables">
+                    <a class="nav-link" data-bs-toggle="collapse" href="#diagnostics" aria-expanded="false" aria-controls="tables">
                         <i class="menu-icon mdi mdi-table"></i>
                         <span class="menu-title">Diagnostics</span>
                         <i class="menu-arrow"></i>
                     </a>
-                    <div class="collapse" id="tables">
+                    <div class="collapse" id="diagnostics">
                         <ul class="nav flex-column sub-menu">
                             <li class="nav-item"> <a class="nav-link" href="{{ path('mes_diagnostics') }}">Voir les Diagnostics</a></li>
                         </ul>
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" data-bs-toggle="collapse" href="#icons" aria-expanded="false" aria-controls="icons">
+                    <a class="nav-link" data-bs-toggle="collapse" href="#fiches" aria-expanded="false" aria-controls="icons">
                         <i class="menu-icon mdi mdi-layers-outline"></i>
                         <span class="menu-title">Fiches</span>
                         <i class="menu-arrow"></i>
                     </a>
-                    <div class="collapse" id="icons">
+                    <div class="collapse" id="fiches">
                         <ul class="nav flex-column sub-menu">
                             <li class="nav-item"> <a class="nav-link" href="{{ path('mes_fiches') }}">Voir les fiches</a></li>
                         </ul>
@@ -182,26 +183,26 @@
                 </li>
                 <li class="nav-item nav-category">Central</li>
                 <li class="nav-item">
-                    <a class="nav-link" data-bs-toggle="collapse" href="#form-elements" aria-expanded="false" aria-controls="form-elements">
+                    <a class="nav-link" data-bs-toggle="collapse" href="#ordonnances" aria-expanded="false" aria-controls="form-elements">
                         <i class="menu-icon mdi mdi-card-text-outline"></i>
                         <span class="menu-title">Ordonnances</span>
                         <i class="menu-arrow"></i>
                     </a>
-                    <div class="collapse" id="form-elements">
+                    <div class="collapse" id="ordonnances">
                         <ul class="nav flex-column sub-menu">
                             <li class="nav-item"><a class="nav-link" href="{{ path('mes_ordonnances') }}">Voir les ordonnances</a></li>
                         </ul>
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" data-bs-toggle="collapse" href="#tables" aria-expanded="false" aria-controls="tables">
+                    <a class="nav-link" data-bs-toggle="collapse" href="#signals" aria-expanded="false" aria-controls="tables">
                         <i class="menu-icon mdi mdi-table"></i>
                         <span class="menu-title">Signals</span>
                         <i class="menu-arrow"></i>
                     </a>
-                    <div class="collapse" id="tables">
+                    <div class="collapse" id="signals">
                         <ul class="nav flex-column sub-menu">
-                            <li class="nav-item"> <a class="nav-link" href="{{ path('signals') }}">Voir les signals</a></li>
+                            <li class="nav-item"> <a class="nav-link" href="{{ path('mes_signals') }}">Voir les signals</a></li>
                             <li class="nav-item"><a class="nav-link" href="{{ path('editer_signal') }}">Signaler Medecin</a></li>
                         </ul>
                     </div>
@@ -217,7 +218,7 @@
                         <ul class="nav flex-column sub-menu">
                             <li class="nav-item"> <a class="nav-link" href=""> Mon profil </a></li>
                             <li class="nav-item"> <a class="nav-link" href="{{ path('mon_dossier') }}"> Mon Dossier </a></li>
-                            <li class="nav-item"> <a class="nav-link" href=""> Se deconnecter </a></li>
+                            <li class="nav-item"> <a class="nav-link" href="{{ path('app_logout') }}"> Se deconnecter </a></li>
                         </ul>
                     </div>
                 </li>

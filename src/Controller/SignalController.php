@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Patient;
+use App\Entity\Personnel;
 use App\Entity\Signalement;
 use App\Form\SignalType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -23,11 +25,25 @@ class SignalController extends AbstractController
     }
 
     #[Route('/mes_signals', name: 'mes_signals')]
-    public function mes_signals(EntityManagerInterface $entityManager): Response
+    public function mes_signals(EntityManagerInterface $entityManager, Request $request): Response
     {
-        $signals = $entityManager->getRepository(Signalement::class)->findAll();
+        $session = $request->getSession();
+        $patient = $entityManager->getRepository(Patient::class)->findBy(["email" => $session->all()["_security.last_username"]]);
+
+        $signals = $entityManager->getRepository(Signalement::class)->findBy(["patient" => $patient[0]]);
 
         return $this->render('patient/signals.html.twig', ['signals' => $signals]);
+    }
+
+    #[Route('/mon_signal', name: 'mon_signal')]
+    public function mon_signal(EntityManagerInterface $entityManager, Request $request): Response
+    {
+        $session = $request->getSession();
+        $personnel = $entityManager->getRepository(Personnel::class)->findBy(["email" => $session->all()["_security.last_username"]]);
+
+        $signals = $entityManager->getRepository(Signalement::class)->findBy(["personnel" => $personnel[0]]);
+
+        return $this->render('personnel/signals.html.twig', ['signals' => $signals]);
     }
 
     #[Route('/editer_signal/{id?0}', name: 'editer_signal')]
@@ -47,7 +63,7 @@ class SignalController extends AbstractController
         if($form->isSubmitted()){
 
             $dateD = new \DateTime();
-            $signal->setDateSignalement($dateD);
+            $signal->setDateSignal($dateD);
 
             $manager = $doctrine->getManager();
             $manager->persist($signal);
@@ -87,7 +103,17 @@ class SignalController extends AbstractController
             $this->addFlash('error', "Ce signal n'existe pas !");
             return $this->redirectToRoute("signals");
         }
-        return $this->render('admin/signal_details.html.twig', ['signal' => $signal]);
+        return $this->render('personnel/details_signal.html.twig', ['signal' => $signal]);
+    }
+
+    #[Route('/signals_detail/{id<\d+>}', name: 'signals_detail')]
+    public function signals_detail(ManagerRegistry $doctrine, Signalement $signal= null, $id): Response
+    {
+        if(!$signal){
+            $this->addFlash('error', "Ce signal n'existe pas !");
+            return $this->redirectToRoute("signals");
+        }
+        return $this->render('patient/details_signal.html.twig', ['signal' => $signal]);
     }
 
     #[Route('/delete_signal/{id?0}', name: 'delete_signal')]

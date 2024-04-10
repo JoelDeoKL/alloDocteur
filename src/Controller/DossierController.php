@@ -2,8 +2,14 @@
 
 namespace App\Controller;
 
+use App\Entity\Diagnostic;
 use App\Entity\Dossier;
+use App\Entity\Examen;
+use App\Entity\Fiche;
+use App\Entity\Ordonnance;
 use App\Entity\Patient;
+use App\Entity\Personnel;
+use App\Entity\Signalement;
 use App\Entity\User;
 use App\Form\DossierType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -32,7 +38,32 @@ class DossierController extends AbstractController
 
         $dossiers = $entityManager->getRepository(Dossier::class)->findBy(["patient" => $patient[0]]);
 
-        return $this->render('patient/dossier.html.twig', ['dossiers' => $dossiers]);
+        $diagnostic = $entityManager->getRepository(Diagnostic::class)->findBy(["patient" => $patient[0]]);
+        $examen = $entityManager->getRepository(Examen::class)->findBy(["patient" => $patient[0]]);
+        $ordonnance = $entityManager->getRepository(Ordonnance::class)->findBy(["patient" => $patient[0]]);
+        $signal = $entityManager->getRepository(Signalement::class)->findBy(["patient" => $patient[0]]);
+
+
+        return $this->render('patient/dossier.html.twig', [
+            'dossiers' => $dossiers,
+            'diagnostic' => $diagnostic,
+            'examen' => $examen,
+            'ordonnance' => $ordonnance,
+            'signal' => $signal
+        ]);
+    }
+
+    #[Route('/nos_dossiers', name: 'nos_dossiers')]
+    public function nos_dossiers(EntityManagerInterface $entityManager, Request $request): Response
+    {
+        $session = $request->getSession();
+        $personnel = $entityManager->getRepository(Personnel::class)->findBy(["email" => $session->all()["_security.last_username"]]);
+
+        $patient = $entityManager->getRepository(Patient::class)->findBy(["personnel" => $personnel[0]]);
+
+        $dossiers = $entityManager->getRepository(Dossier::class)->findAll();
+
+        return $this->render('personnel/dossiers.html.twig', ['dossiers' => $dossiers, 'patients' => $patient]);
     }
 
     #[Route('/editer_dossier/{id?0}', name: 'editer_dossier')]
@@ -75,14 +106,76 @@ class DossierController extends AbstractController
         }
     }
 
-    #[Route('/detail_dossier/{id<\d+>}', name: 'detail_dossier')]
-    public function detail_dossier(ManagerRegistry $doctrine, Dossier $dossier= null, $id): Response
+    #[Route('/details_dossier/{id<\d+>}', name: 'details_dossier')]
+    public function detail_dossier(ManagerRegistry $doctrine, EntityManagerInterface $entityManager, Dossier $dossier= null, $id, Request $request): Response
     {
         if(!$dossier){
             $this->addFlash('error', "Ce dossier n'existe pas !");
             return $this->redirectToRoute("dossiers");
         }
-        return $this->render('admin/dossier_details.html.twig', ['dossier' => $dossier]);
+
+        $diagnostics = $entityManager->getRepository(Diagnostic::class)->findBy(["patient" => $dossier->getPatient()->getId()]);
+        $examens = $entityManager->getRepository(Examen::class)->findBy(["patient" => $dossier->getPatient()->getId()]);
+        $ordonnances = $entityManager->getRepository(Ordonnance::class)->findBy(["patient" => $dossier->getPatient()->getId()]);
+        $signals = $entityManager->getRepository(Signalement::class)->findBy(["patient" => $dossier->getPatient()->getId()]);
+        $fiches = $entityManager->getRepository(Fiche::class)->findBy(["patient" => $dossier->getPatient()->getId()]);
+
+
+        return $this->render('admin/dossier_details.html.twig', [
+            'diagnostics' => $diagnostics,
+            'examens' => $examens,
+            'ordonnances' => $ordonnances,
+            'signals' => $signals,
+            'fiches' => $fiches
+        ]);
+    }
+
+    #[Route('/dossier_details/{id<\d+>}', name: 'dossier_details')]
+    public function dossier_details(ManagerRegistry $doctrine, EntityManagerInterface $entityManager, Dossier $dossier= null, $id, Request $request): Response
+    {
+        if(!$dossier){
+            $this->addFlash('error', "Ce dossier n'existe pas !");
+            return $this->redirectToRoute("dossiers");
+        }
+
+        $diagnostics = $entityManager->getRepository(Diagnostic::class)->findBy(["patient" => $dossier->getPatient()->getId()]);
+        $examens = $entityManager->getRepository(Examen::class)->findBy(["patient" => $dossier->getPatient()->getId()]);
+        $ordonnances = $entityManager->getRepository(Ordonnance::class)->findBy(["patient" => $dossier->getPatient()->getId()]);
+        $signals = $entityManager->getRepository(Signalement::class)->findBy(["patient" => $dossier->getPatient()->getId()]);
+        $fiches = $entityManager->getRepository(Fiche::class)->findBy(["patient" => $dossier->getPatient()->getId()]);
+
+
+        return $this->render('personnel/dossier_details.html.twig', [
+            'diagnostics' => $diagnostics,
+            'examens' => $examens,
+            'ordonnances' => $ordonnances,
+            'signals' => $signals,
+            'fiches' => $fiches
+        ]);
+    }
+
+    #[Route('/dossier_detail/{id<\d+>}', name: 'dossier_detail')]
+    public function dossier_detail(ManagerRegistry $doctrine, EntityManagerInterface $entityManager, Dossier $dossier= null, $id, Request $request): Response
+    {
+        if(!$dossier){
+            $this->addFlash('error', "Ce dossier n'existe pas !");
+            return $this->redirectToRoute("dossiers");
+        }
+
+        $diagnostics = $entityManager->getRepository(Diagnostic::class)->findBy(["patient" => $dossier->getPatient()->getId()]);
+        $examens = $entityManager->getRepository(Examen::class)->findBy(["patient" => $dossier->getPatient()->getId()]);
+        $ordonnances = $entityManager->getRepository(Ordonnance::class)->findBy(["patient" => $dossier->getPatient()->getId()]);
+        $signals = $entityManager->getRepository(Signalement::class)->findBy(["patient" => $dossier->getPatient()->getId()]);
+        $fiches = $entityManager->getRepository(Fiche::class)->findBy(["patient" => $dossier->getPatient()->getId()]);
+
+
+        return $this->render('patient/dossier_details.html.twig', [
+            'diagnostics' => $diagnostics,
+            'examens' => $examens,
+            'ordonnances' => $ordonnances,
+            'signals' => $signals,
+            'fiches' => $fiches
+        ]);
     }
 
     #[Route('/delete_dossier/{id?0}', name: 'delete_dossier')]

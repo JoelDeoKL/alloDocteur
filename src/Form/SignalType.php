@@ -15,7 +15,6 @@ class SignalType extends AbstractType
     {
         $builder
             ->add('observation')
-            ->add('date_signal')
             ->add('patient')
             ->add('personnel')
             ->add('editer', SubmitType::class)

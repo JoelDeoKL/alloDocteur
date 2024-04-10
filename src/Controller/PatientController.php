@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Patient;
+use App\Entity\Personnel;
 use App\Entity\User;
 use App\Form\PatientType;
 use App\Form\AssignerType;
@@ -22,6 +23,25 @@ class PatientController extends AbstractController
         $patients = $entityManager->getRepository(Patient::class)->findAll();
 
         return $this->render('admin/patients.html.twig', ['patients' => $patients]);
+    }
+
+    #[Route('/mes_patients', name: 'mes_patients')]
+    public function mes_patients(EntityManagerInterface $entityManager, Request $request): Response
+    {
+        $session = $request->getSession();
+        $personnel = $entityManager->getRepository(Personnel::class)->findBy(["email" => $session->all()["_security.last_username"]]);
+
+        $patients = $entityManager->getRepository(Patient::class)->findBy(["personnel" => $personnel[0]]);
+
+        return $this->render('personnel/patients.html.twig', ['patients' => $patients]);
+    }
+
+    #[Route('/nos_patients', name: 'nos_patients')]
+    public function nos_patients(EntityManagerInterface $entityManager): Response
+    {
+        $patients = $entityManager->getRepository(Patient::class)->findAll();
+
+        return $this->render('personnel/patients.html.twig', ['patients' => $patients]);
     }
 
     #[Route('/editer_patient/{id?0}', name: 'editer_patient')]
@@ -121,7 +141,17 @@ class PatientController extends AbstractController
             $this->addFlash('error', "Ce patient n'existe pas !");
             return $this->redirectToRoute("patients");
         }
-        return $this->render('admin/patient_details.html.twig', ['patient' => $patient]);
+        return $this->render('admin/details_patient.html.twig', ['patient' => $patient]);
+    }
+
+    #[Route('/patient_detail/{id<\d+>}', name: 'patient_detail')]
+    public function patient_detail(ManagerRegistry $doctrine, Patient $patient= null, $id): Response
+    {
+        if(!$patient){
+            $this->addFlash('error', "Ce patient n'existe pas !");
+            return $this->redirectToRoute("patients");
+        }
+        return $this->render('personnel/details_patient.html.twig', ['patient' => $patient]);
     }
 
     #[Route('/delete_patient/{id?0}', name: 'delete_patient')]

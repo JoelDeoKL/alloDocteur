@@ -25,16 +25,31 @@ class PersonnelController extends AbstractController
         return $this->render('admin/personnels.html.twig', ['personnels' => $personnels]);
     }
 
-    #[Route('/personnel', name: 'personnel')]
-    public function personnel(EntityManagerInterface $entityManager, Request $request): Response
+    #[Route('/les_personnels', name: 'les_personnels')]
+    public function les_personnels(EntityManagerInterface $entityManager): Response
+    {
+        $personnels = $entityManager->getRepository(Personnel::class)->findAll();
+
+        return $this->render('patient/personnels.html.twig', ['personnels' => $personnels]);
+    }
+
+    #[Route('/nos_personnels', name: 'nos_personnels')]
+    public function nos_personnels(EntityManagerInterface $entityManager): Response
+    {
+        $personnels = $entityManager->getRepository(Personnel::class)->findAll();
+
+        return $this->render('personnel/personnels.html.twig', ['personnels' => $personnels]);
+    }
+
+    #[Route('/mon_medecin', name: 'mon_medecin')]
+    public function mon_medecin(EntityManagerInterface $entityManager, Request $request): Response
     {
         $session = $request->getSession();
         $patient = $entityManager->getRepository(Patient::class)->findBy(["email" => $session->all()["_security.last_username"]]);
 
-        $personnel = $entityManager->getRepository(Personnel::class)->findBy(["id" => $patient[0]->getId()]);
+        $personnel = $entityManager->getRepository(Personnel::class)->findBy(["id" => $patient[0]->getPersonnel()->getId()]);
 
-
-        return $this->render('patient/personnels.html.twig', ['personnel' => $personnel]);
+        return $this->render('patient/personnel.html.twig', ['personnel' => $personnel]);
     }
 
     #[Route('/editer_personnel/{id?0}', name: 'editer_personnel')]
@@ -104,7 +119,17 @@ class PersonnelController extends AbstractController
             $this->addFlash('error', "Ce personnel n'existe pas !");
             return $this->redirectToRoute("personnels");
         }
-        return $this->render('admin/personnel_details.html.twig', ['personnel' => $personnel]);
+        return $this->render('admin/details_personnel.html.twig', ['personnel' => $personnel]);
+    }
+
+    #[Route('/personnel_detail/{id<\d+>}', name: 'personnel_detail')]
+    public function personnel_detail(ManagerRegistry $doctrine, Personnel $personnel= null, $id): Response
+    {
+        if(!$personnel){
+            $this->addFlash('error', "Ce personnel n'existe pas !");
+            return $this->redirectToRoute("personnels");
+        }
+        return $this->render('personnel/details_personnel.html.twig', ['personnel' => $personnel]);
     }
 
     #[Route('/delete_personnel/{id?0}', name: 'delete_personnel')]

@@ -1,0 +1,43 @@
+{% extends 'medecin_template.html.twig' %}
+
+{% block title %} AlloDocteur - Signals {% endblock %}
+
+{% block body %}
+
+  <div class="main-panel">
+  <div class="content-wrapper">
+    <div class="row">
+      <div class="col-lg-12 grid-margin stretch-card">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">Liste des signals que nous avons recus</h4>
+            <div class="table-responsive">
+              <table class="table table-striped">
+                <thead>
+                <tr>
+                  <th>Personnel</th>
+                  <th>Observation</th>
+                  <th>Date signal</th>
+                  <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for signal in signals %}
+                  <tr>
+                    <td>{{ signal.personnel }}</td>
+                    <td>{{ signal.observation }}</td>
+                    <td>{{ signal.dateSignal|date('Y-m-d') }}</td>
+                    <td>
+                      <a href="{{ path("signal_detail", {id: signal.id}) }}" class="btn btn-primary">Voir</a>
+                    </td>
+                  </tr>
+                {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

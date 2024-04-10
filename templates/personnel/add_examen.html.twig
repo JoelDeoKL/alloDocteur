@@ -1,6 +1,6 @@
-{% extends 'admin_template.html.twig' %}
+{% extends 'medecin_template.html.twig' %}
 
-{% block title %}ApproManager - Ajouter Ordonnance{% endblock %}
+{% block title %}ApproManager - Ajouter Examen{% endblock %}
 
 {% block body %}
 
@@ -11,7 +11,7 @@
       <div class="col-md-12 grid-margin stretch-card">
         <div class="card">
           <div class="card-body">
-            <h4 class="card-title">Formulaire de prescription d'une ordonnance</h4>
+            <h4 class="card-title">Formulaire d'ajout d'un examen</h4>
             <p class="card-description">
               Remplir ce formulaire
             </p>
@@ -19,8 +19,14 @@
               'class':'forms-sample',
             }}) }}
             <div class="form-group">
-              {{ form_label(form.ordannance) }}
-              {{ form_widget(form.ordannance, {'attr': {
+              {{ form_label(form.nom_examen) }}
+              {{ form_widget(form.nom_examen, {'attr': {
+                'class':'required form-control',
+              }}) }}
+            </div>
+            <div class="form-group">
+              {{ form_label(form.description_examen) }}
+              {{ form_widget(form.description_examen, {'attr': {
                 'class':'required form-control',
               }}) }}
             </div>
@@ -33,12 +39,6 @@
             <div class="form-group">
               {{ form_label(form.personnel) }}
               {{ form_widget(form.personnel, {'attr': {
-                'class':'required form-control',
-              }}) }}
-            </div>
-            <div class="form-group">
-              {{ form_label(form.date_ordonnance) }}
-              {{ form_widget(form.date_ordonnance, {'attr': {
                 'class':'required form-control',
               }}) }}
             </div>

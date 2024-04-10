@@ -1,0 +1,49 @@
+{% extends 'medecin_template.html.twig' %}
+
+{% block title %} AlloDocteur - Dossiers {% endblock %}
+
+{% block body %}
+
+  <div class="main-panel">
+  <div class="content-wrapper">
+    <div class="row">
+      <div class="col-lg-12 grid-margin stretch-card">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">Liste des dossiers médicaux</h4>
+            <div class="table-responsive">
+              <table class="table table-striped">
+                <thead>
+                <tr>
+                  <th>Numero</th>
+                  <th>Patient</th>
+                  <th>Description</th>
+                  <th>Date creation</th>
+                  <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for dossier in dossiers %}
+                  {% for patient in patients %}
+                    {% if dossier.patient == patient %}
+                      <tr>
+                        <td>{{ dossier.numero }}</td>
+                        <td>{{ dossier.patient }}</td>
+                        <td>{{ dossier.descriptionDossier }}</td>
+                        <td>{{ dossier.dateCreation|date('Y-m-d') }}</td>
+                        <td>
+                          <a href="{{ path("dossier_details", {id: dossier.id}) }}" class="btn btn-primary">Voir</a>
+                        </td>
+                      </tr>
+                    {% endif %}
+                  {% endfor %}
+                {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

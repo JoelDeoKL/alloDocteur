@@ -31,8 +31,6 @@
                     <td>{{ diagnostic.dateCreation|date('Y-m-d') }}</td>
                     <td>
                       <a href="" class="btn btn-primary">Voir</a>
-                      <a href="{{ path("editer_diagnostic", {id: diagnostic.id}) }}" class="btn btn-primary">Modifier</a>
-                      <a href="" class="btn btn-primary">Supprimer</a>
                     </td>
                   </tr>
                 {% endfor %}

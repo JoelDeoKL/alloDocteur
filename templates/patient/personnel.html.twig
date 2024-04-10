@@ -1,0 +1,43 @@
+{% extends 'patient_template.html.twig' %}
+
+{% block title %} AlloDocteur - Personnels {% endblock %}
+
+{% block body %}
+
+  <div class="main-panel">
+  <div class="content-wrapper">
+    <div class="row">
+      <div class="col-lg-12 grid-margin stretch-card">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">Liste de notre personnel</h4>
+            <div class="table-responsive">
+              <table class="table table-striped">
+                <thead>
+                <tr>
+                  <th>Noms</th>
+                  <th>Description</th>
+                  <th>Fonction</th>
+                  <th>Téléphone</th>
+                  <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                      <td>{{ personnel[0].nomPersonnel }} {{ personnel[0].postnomPersonnel }} {{ personnel[0].prenomPersonnel }}</td>
+                      <td>{{ personnel[0].descriptionPersonnel }}</td>
+                      <td>{{ personnel[0].fonction }}</td>
+                      <td>{{ personnel[0].telephonePersonnel }}</td>
+                      <td>
+                        <a href="{{ path("detail_personnel", {id: personnel.id}) }}" class="btn btn-primary">Voir</a>
+                      </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

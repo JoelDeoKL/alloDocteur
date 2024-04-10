@@ -30,18 +30,18 @@
                     <td>{{ personnel.fonction }}</td>
                     <td>{{ personnel.telephonePersonnel }}</td>
                     <td>
-                      <a href="" class="btn btn-primary">Voir</a>
-                      <a href="{{ path("editer_personnel", {id: personnel.id}) }}" class="btn btn-primary">Modifier</a>
-                      <a href="" class="btn btn-primary">Supprimer</a>
+                      <a href="{{ path("detail_personnel", {id: personnel.id}) }}" class="btn btn-primary">Voir</a>
+                      <a href="{{ path("editer_patient", {id: personnel.id}) }}" class="btn btn-primary">Modifier</a>
+                      <a href="{{ path("delete_personnel", {id: personnel.id}) }}" class="btn btn-primary">Supprimer</a>
                     </td>
                   </tr>
                 {% endfor %}
                 </tbody>
               </table>
+              <a href="{{ path('editer_personnel') }}" class="btn btn-primary">Ajouter Personnel</a>
             </div>
           </div>
         </div>
-      </div>
     </div>
   </div>
 {% endblock %}

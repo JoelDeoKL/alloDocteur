@@ -30,9 +30,7 @@
                     <td>{{ dossier.descriptionDossier }}</td>
                     <td>{{ dossier.dateCreation|date('Y-m-d') }}</td>
                     <td>
-                      <a href="" class="btn btn-primary">Voir</a>
-                      <a href="{{ path("editer_dossier", {id: dossier.id}) }}" class="btn btn-primary">Modifier</a>
-                      <a href="" class="btn btn-primary">Supprimer</a>
+                      <a href="{{ path("dossier_detail", {id: dossier.id}) }}" class="btn btn-primary">Voir</a>
                     </td>
                   </tr>
                 {% endfor %}

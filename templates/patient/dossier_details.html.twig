@@ -1,0 +1,420 @@
+{% extends 'patient_template.html.twig' %}
+
+{% block title %} AlloDocteur - Details dossier {% endblock %}
+
+{% block body %}
+
+      <!-- partial -->
+      <div class="main-panel">
+        <div class="content-wrapper">
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="home-tab">
+                <div class="d-sm-flex align-items-center justify-content-between border-bottom">
+                  <ul class="nav nav-tabs" role="tablist">
+                    <li class="nav-item">
+                      <a class="nav-link active ps-0" id="dossier" data-bs-toggle="tab" href="#test" role="tab" aria-controls="fiches" aria-selected="true"> Fiches</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link ps-0" id="diagnostic" data-bs-toggle="tab" href="#test1" role="tab" aria-controls="diagnostic" aria-selected="true"> Diagnostics</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link ps-0" id="examen" data-bs-toggle="tab" href="#test2" role="tab" aria-controls="examen" aria-selected="true"> Examen</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link ps-0" id="examen" data-bs-toggle="tab" href="#test3" role="tab" aria-controls="ordonnance" aria-selected="true"> Ordonnance</a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="tab-content tab-content-basic">
+                  <div class="tab-pane fade show active" id="test" role="tabpanel" aria-labelledby="test">
+                    <div class="row">
+                      <div class="col-lg-8 d-flex flex-column">
+                        <div class="row flex-grow">
+                          <div class="col-12 grid-margin stretch-card">
+                            <div class="card card-rounded">
+                              <div class="card-body">
+                                <h5>Voici l'historique des fiches du patient {{ fiches[0].patient }}</h5>
+                                <div class="table-responsive">
+                                  <table class="table table-striped">
+                                    <thead>
+                                    <tr>
+                                      <th>Numero fiche</th>
+                                      <th>Personnel</th>
+                                      <th>Date fiche</th>
+                                      <th>Service</th>
+                                      <th>Actions</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for fiche in fiches %}
+                                      <tr>
+                                        <td>Fiche N°{{ fiche.id }}</td>
+                                        <td>{{ fiche.personnel }}</td>
+                                        <td>{{ fiche.dateCreation|date('Y-m-d h:m:s') }}</td>
+                                        <td>{{ fiche.service }}</td>
+                                        <td>
+                                          <a href="{{ path("detail_fiche", {id: fiche.id}) }}" class="btn btn-primary">Voir</a>
+                                          <a href="{{ path("editer_fiche", {id: fiche.id}) }}" class="btn btn-primary">Modifier</a>
+                                          <a href="{{ path("delete_fiche", {id: fiche.id}) }}" class="btn btn-primary">Supprimer</a>
+                                        </td>
+                                      </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                  </table>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-lg-4 d-flex flex-column">
+                        <div class="row flex-grow">
+                          <div class="col-12 grid-margin stretch-card">
+                            <div class="card card-rounded">
+                              <div class="card-body">
+                                <div class="row">
+                                  <div class="col-lg-12">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                      <h4 class="card-title card-title-dash">Mes Taches</h4>
+                                      <div class="add-items d-flex mb-0">
+                                        <!-- <input type="text" class="form-control todo-list-input" placeholder="What do you need to do today?"> -->
+                                        <button class="add btn btn-icons btn-rounded btn-primary todo-list-add-btn text-white me-0 pl-12p"><i class="mdi mdi-plus"></i></button>
+                                      </div>
+                                    </div>
+                                    <div class="list-wrapper">
+                                      <ul class="todo-list todo-list-rounded">
+                                        <li class="d-block">
+                                          <div class="form-check w-100">
+                                            <label class="form-check-label">
+                                              <input class="checkbox" type="checkbox">Créer les comptes des médecins<i class="input-helper rounded"></i>
+                                            </label>
+                                          </div>
+                                        </li>
+                                        <li class="d-block">
+                                          <div class="form-check w-100">
+                                            <label class="form-check-label">
+                                              <input class="checkbox" type="checkbox">Prendre les informations des patients<i class="input-helper rounded"></i>
+                                            </label>
+                                          </div>
+                                        </li>
+                                        <li>
+                                          <div class="form-check w-100">
+                                            <label class="form-check-label">
+                                              <input class="checkbox" type="checkbox"> Constituer les dossiers <i class="input-helper rounded"></i>
+                                            </label>
+                                          </div>
+                                        </li>
+                                        <li class="border-bottom-0">
+                                          <div class="form-check w-100">
+                                            <label class="form-check-label">
+                                              <input class="checkbox" type="checkbox">Assigner Médecin <i class="input-helper rounded"></i>
+                                            </label>
+                                          </div>
+                                        </li>
+                                      </ul>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="tab-pane fade show active" id="test1" role="tabpanel" aria-labelledby="test">
+                    <div class="row">
+                      <div class="col-lg-8 d-flex flex-column">
+                        <div class="row flex-grow">
+                          <div class="col-12 grid-margin stretch-card">
+                            <div class="card card-rounded">
+                              <div class="card-body">
+                                <h5>Voici l'historique des diagnostics du patient {{ diagnostics[0].patient }}</h5>
+                                <div class="table-responsive">
+                                  <table class="table table-striped">
+                                    <thead>
+                                    <tr>
+                                      <th>Diagnostics</th>
+                                      <th>Description</th>
+                                      <th>Personnel</th>
+                                      <th>Date Diagnostic</th>
+                                      <th>Actions</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for diagnostic in diagnostics %}
+                                      <tr>
+                                        <td>{{ diagnostic.nomDiagnostic }}</td>
+                                        <td>{{ diagnostic.descriptionDiagnostic }}</td>
+                                        <td>{{ diagnostic.personnel }}</td>
+                                        <td>{{ diagnostic.dateCreation|date('Y-m-d') }}</td>
+                                        <td>
+                                          <a href="" class="btn btn-primary">Voir</a>
+                                          <a href="" class="btn btn-primary">Supprimer</a>
+                                        </td>
+                                      </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                  </table>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-lg-4 d-flex flex-column">
+                        <div class="row flex-grow">
+                          <div class="col-12 grid-margin stretch-card">
+                            <div class="card card-rounded">
+                              <div class="card-body">
+                                <div class="row">
+                                  <div class="col-lg-12">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                      <h4 class="card-title card-title-dash">Mes Taches</h4>
+                                      <div class="add-items d-flex mb-0">
+                                        <!-- <input type="text" class="form-control todo-list-input" placeholder="What do you need to do today?"> -->
+                                        <button class="add btn btn-icons btn-rounded btn-primary todo-list-add-btn text-white me-0 pl-12p"><i class="mdi mdi-plus"></i></button>
+                                      </div>
+                                    </div>
+                                    <div class="list-wrapper">
+                                      <ul class="todo-list todo-list-rounded">
+                                        <li class="d-block">
+                                          <div class="form-check w-100">
+                                            <label class="form-check-label">
+                                              <input class="checkbox" type="checkbox">Créer les comptes des médecins<i class="input-helper rounded"></i>
+                                            </label>
+                                          </div>
+                                        </li>
+                                        <li class="d-block">
+                                          <div class="form-check w-100">
+                                            <label class="form-check-label">
+                                              <input class="checkbox" type="checkbox">Prendre les informations des patients<i class="input-helper rounded"></i>
+                                            </label>
+                                          </div>
+                                        </li>
+                                        <li>
+                                          <div class="form-check w-100">
+                                            <label class="form-check-label">
+                                              <input class="checkbox" type="checkbox"> Constituer les dossiers <i class="input-helper rounded"></i>
+                                            </label>
+                                          </div>
+                                        </li>
+                                        <li class="border-bottom-0">
+                                          <div class="form-check w-100">
+                                            <label class="form-check-label">
+                                              <input class="checkbox" type="checkbox">Assigner Médecin <i class="input-helper rounded"></i>
+                                            </label>
+                                          </div>
+                                        </li>
+                                      </ul>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="tab-pane fade show active" id="test2" role="tabpanel" aria-labelledby="test">
+                    <div class="row">
+                      <div class="col-lg-8 d-flex flex-column">
+                        <div class="row flex-grow">
+                          <div class="col-12 grid-margin stretch-card">
+                            <div class="card card-rounded">
+                              <div class="card-body">
+                                <h5>Voici l'historique des examens du patient {{ examens[0].patient }}</h5>
+                                <div class="table-responsive">
+                                  <table class="table table-striped">
+                                    <thead>
+                                    <tr>
+                                      <th>Nom examen</th>
+                                      <th>Description examen</th>
+                                      <th>Personnel</th>
+                                      <th>Date examen</th>
+                                      <th>Actions</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for examen in examens %}
+                                      <tr>
+                                        <td>{{ examen.nomExamen }}</td>
+                                        <td>{{ examen.descriptionExamen }}</td>
+                                        <td>{{ examen.personnel }}</td>
+                                        <td>{{ examen.dateExamen|date('Y-m-d') }}</td>
+                                        <td>
+                                          <a href="{{ path("detail_examen", {id: examen.id}) }}" class="btn btn-primary">Voir</a>
+                                          <a href="{{ path("editer_examen", {id: examen.id}) }}" class="btn btn-primary">Modifier</a>
+                                          <a href="{{ path("delete_examen", {id: examen.id}) }}" class="btn btn-primary">Supprimer</a>
+                                        </td>
+                                      </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                  </table>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-lg-4 d-flex flex-column">
+                        <div class="row flex-grow">
+                          <div class="col-12 grid-margin stretch-card">
+                            <div class="card card-rounded">
+                              <div class="card-body">
+                                <div class="row">
+                                  <div class="col-lg-12">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                      <h4 class="card-title card-title-dash">Mes Taches</h4>
+                                      <div class="add-items d-flex mb-0">
+                                        <!-- <input type="text" class="form-control todo-list-input" placeholder="What do you need to do today?"> -->
+                                        <button class="add btn btn-icons btn-rounded btn-primary todo-list-add-btn text-white me-0 pl-12p"><i class="mdi mdi-plus"></i></button>
+                                      </div>
+                                    </div>
+                                    <div class="list-wrapper">
+                                      <ul class="todo-list todo-list-rounded">
+                                        <li class="d-block">
+                                          <div class="form-check w-100">
+                                            <label class="form-check-label">
+                                              <input class="checkbox" type="checkbox">Créer les comptes des médecins<i class="input-helper rounded"></i>
+                                            </label>
+                                          </div>
+                                        </li>
+                                        <li class="d-block">
+                                          <div class="form-check w-100">
+                                            <label class="form-check-label">
+                                              <input class="checkbox" type="checkbox">Prendre les informations des patients<i class="input-helper rounded"></i>
+                                            </label>
+                                          </div>
+                                        </li>
+                                        <li>
+                                          <div class="form-check w-100">
+                                            <label class="form-check-label">
+                                              <input class="checkbox" type="checkbox"> Constituer les dossiers <i class="input-helper rounded"></i>
+                                            </label>
+                                          </div>
+                                        </li>
+                                        <li class="border-bottom-0">
+                                          <div class="form-check w-100">
+                                            <label class="form-check-label">
+                                              <input class="checkbox" type="checkbox">Assigner Médecin <i class="input-helper rounded"></i>
+                                            </label>
+                                          </div>
+                                        </li>
+                                      </ul>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="tab-pane fade show active" id="test3" role="tabpanel" aria-labelledby="test">
+                    <div class="row">
+                      <div class="col-lg-8 d-flex flex-column">
+                        <div class="row flex-grow">
+                          <div class="col-12 grid-margin stretch-card">
+                            <div class="card card-rounded">
+                              <div class="card-body">
+                                <h5>Voici l'histoique des ordonnances du patient {{ ordonnances[0].patient }}</h5>
+                                <div class="table-responsive">
+                                  <table class="table table-striped">
+                                    <thead>
+                                    <tr>
+                                      <th>Numéro Ordonnace</th>
+                                      <th>Personnel</th>
+                                      <th>Ordonnance</th>
+                                      <th>Date création</th>
+                                      <th>Actions</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for ordonnance in ordonnances %}
+                                      <tr>
+                                        <td>Ordonnance N°{{ ordonnance.id }}</td>
+                                        <td>{{ ordonnance.personnel }}</td>
+                                        <td>{{ ordonnance.ordannance }}</td>
+                                        <td>{{ ordonnance.dateOrdonnance|date('Y-m-d') }}</td>
+                                        <td>
+                                          <a href="" class="btn btn-primary">Voir</a>
+                                        </td>
+                                      </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                  </table>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-lg-4 d-flex flex-column">
+                        <div class="row flex-grow">
+                          <div class="col-12 grid-margin stretch-card">
+                            <div class="card card-rounded">
+                              <div class="card-body">
+                                <div class="row">
+                                  <div class="col-lg-12">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                      <h4 class="card-title card-title-dash">Mes Taches</h4>
+                                      <div class="add-items d-flex mb-0">
+                                        <!-- <input type="text" class="form-control todo-list-input" placeholder="What do you need to do today?"> -->
+                                        <button class="add btn btn-icons btn-rounded btn-primary todo-list-add-btn text-white me-0 pl-12p"><i class="mdi mdi-plus"></i></button>
+                                      </div>
+                                    </div>
+                                    <div class="list-wrapper">
+                                      <ul class="todo-list todo-list-rounded">
+                                        <li class="d-block">
+                                          <div class="form-check w-100">
+                                            <label class="form-check-label">
+                                              <input class="checkbox" type="checkbox">Créer les comptes des médecins<i class="input-helper rounded"></i>
+                                            </label>
+                                          </div>
+                                        </li>
+                                        <li class="d-block">
+                                          <div class="form-check w-100">
+                                            <label class="form-check-label">
+                                              <input class="checkbox" type="checkbox">Prendre les informations des patients<i class="input-helper rounded"></i>
+                                            </label>
+                                          </div>
+                                        </li>
+                                        <li>
+                                          <div class="form-check w-100">
+                                            <label class="form-check-label">
+                                              <input class="checkbox" type="checkbox"> Constituer les dossiers <i class="input-helper rounded"></i>
+                                            </label>
+                                          </div>
+                                        </li>
+                                        <li class="border-bottom-0">
+                                          <div class="form-check w-100">
+                                            <label class="form-check-label">
+                                              <input class="checkbox" type="checkbox">Assigner Médecin <i class="input-helper rounded"></i>
+                                            </label>
+                                          </div>
+                                        </li>
+                                      </ul>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- content-wrapper ends -->
+        <!-- partial:partials/_footer.html -->
+        <!-- partial -->
+      </div>
+{% endblock %}

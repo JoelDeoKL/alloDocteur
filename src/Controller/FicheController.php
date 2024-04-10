@@ -23,6 +23,14 @@ class FicheController extends AbstractController
         return $this->render('admin/fiches.html.twig', ['fiches' => $fiches]);
     }
 
+    #[Route('/nos_fiches', name: 'nos_fiches')]
+    public function nos_fiches(EntityManagerInterface $entityManager): Response
+    {
+        $fiches = $entityManager->getRepository(Fiche::class)->findAll();
+
+        return $this->render('personnel/fiches.html.twig', ['fiches' => $fiches]);
+    }
+
     #[Route('/mes_fiches', name: 'mes_fiches')]
     public function mes_fiches(EntityManagerInterface $entityManager, Request $request): Response
     {
@@ -81,7 +89,17 @@ class FicheController extends AbstractController
             $this->addFlash('error', "Ce fiche n'existe pas !");
             return $this->redirectToRoute("fiches");
         }
-        return $this->render('admin/fiche_details.html.twig', ['fiche' => $fiche]);
+        return $this->render('admin/details_fiche.html.twig', ['fiche' => $fiche]);
+    }
+
+    #[Route('/fiche_detail/{id<\d+>}', name: 'fiche_detail')]
+    public function fiche_detail(ManagerRegistry $doctrine, Fiche $fiche= null, $id): Response
+    {
+        if(!$fiche){
+            $this->addFlash('error', "Ce fiche n'existe pas !");
+            return $this->redirectToRoute("fiches");
+        }
+        return $this->render('personnel/details_fiche.html.twig', ['fiche' => $fiche]);
     }
 
     #[Route('/delete_fiche/{id?0}', name: 'delete_fiche')]

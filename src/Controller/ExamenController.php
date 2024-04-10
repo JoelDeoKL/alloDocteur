@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Examen;
 use App\Entity\Patient;
+use App\Entity\Personnel;
 use App\Form\ExamenType;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
@@ -15,16 +16,16 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ExamenController extends AbstractController
 {
-    #[Route('/mes_examens', name: 'mes_examens')]
-    public function mes_examens(EntityManagerInterface $entityManager): Response
+    #[Route('/examens', name: 'examens')]
+    public function examens(EntityManagerInterface $entityManager): Response
     {
         $examens = $entityManager->getRepository(Examen::class)->findAll();
 
         return $this->render('admin/examens.html.twig', ['examens' => $examens]);
     }
 
-    #[Route('/examens', name: 'examens')]
-    public function examens(EntityManagerInterface $entityManager, Request $request): Response
+    #[Route('/mes_examens', name: 'mes_examens')]
+    public function mes_examens(EntityManagerInterface $entityManager, Request $request): Response
     {
         $session = $request->getSession();
         $patient = $entityManager->getRepository(Patient::class)->findBy(["email" => $session->all()["_security.last_username"]]);
@@ -32,6 +33,17 @@ class ExamenController extends AbstractController
         $examens = $entityManager->getRepository(Examen::class)->findBy(["patient" => $patient[0]]);
 
         return $this->render('patient/examens.html.twig', ['examens' => $examens]);
+    }
+
+    #[Route('/nos_examens', name: 'nos_examens')]
+    public function nos_examens(EntityManagerInterface $entityManager, Request $request): Response
+    {
+        $session = $request->getSession();
+        $personnel = $entityManager->getRepository(Personnel::class)->findBy(["email" => $session->all()["_security.last_username"]]);
+
+        $examens = $entityManager->getRepository(Examen::class)->findBy(["personnel" => $personnel[0]]);
+
+        return $this->render('personnel/examens.html.twig', ['examens' => $examens]);
     }
 
     #[Route('/editer_examen/{id?0}', name: 'editer_examen')]
@@ -68,7 +80,7 @@ class ExamenController extends AbstractController
 
             return $this->redirectToRoute("examens");
         }else{
-            return $this->render('admin/add_examen.html.twig', [
+            return $this->render('personnel/add_examen.html.twig', [
                 'form' => $form->createView()
             ]);
         }
@@ -82,6 +94,16 @@ class ExamenController extends AbstractController
             return $this->redirectToRoute("examens");
         }
         return $this->render('admin/examen_details.html.twig', ['examen' => $examen]);
+    }
+
+    #[Route('/examen_detail/{id<\d+>}', name: 'examen_detail')]
+    public function examen_detail(ManagerRegistry $doctrine, Examen $examen= null, $id): Response
+    {
+        if(!$examen){
+            $this->addFlash('error', "Ce examen n'existe pas !");
+            return $this->redirectToRoute("examens");
+        }
+        return $this->render('personnel/examen_details.html.twig', ['examen' => $examen]);
     }
 
     #[Route('/delete_examen/{id?0}', name: 'delete_examen')]

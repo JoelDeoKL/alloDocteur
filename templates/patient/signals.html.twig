@@ -28,11 +28,11 @@
                     <td>{{ signal.patient }}</td>
                     <td>{{ signal.personnel }}</td>
                     <td>{{ signal.observation }}</td>
-                    <td>{{ signal.date_signal|date('Y-m-d') }}</td>
+                    <td>{{ signal.dateSignal|date('Y-m-d') }}</td>
                     <td>
-                      <a href="" class="btn btn-primary">Voir</a>
+                      <a href="{{ path("signals_detail", {id: signal.id}) }}" class="btn btn-primary">Voir</a>
                       <a href="{{ path("editer_signal", {id: signal.id}) }}" class="btn btn-primary">Modifier</a>
-                      <a href="" class="btn btn-primary">Supprimer</a>
+                      <a href="{{ path("delete_signal", {id: signal.id}) }}" class="btn btn-primary">Supprimer</a>
                     </td>
                   </tr>
                 {% endfor %}
