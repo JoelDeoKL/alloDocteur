@@ -1,6 +1,6 @@
 {% extends 'medecin_template.html.twig' %}
 
-{% block title %} AlloDocteur - Details Diagnostic {% endblock %}
+{% block title %} AlloDocteur - Details Fiche {% endblock %}
 
 {% block body %}
 
@@ -13,7 +13,7 @@
                 <div class="d-sm-flex align-items-center justify-content-between border-bottom">
                   <ul class="nav nav-tabs" role="tablist">
                     <li class="nav-item">
-                      <a class="nav-link active ps-0" id="home-tab" data-bs-toggle="tab" href="#overview" role="tab" aria-controls="overview" aria-selected="true">Diagnostic</a>
+                      <a class="nav-link active ps-0" id="home-tab" data-bs-toggle="tab" href="#overview" role="tab" aria-controls="overview" aria-selected="true">Fiche</a>
                     </li>
                   </ul>
                 </div>
@@ -25,10 +25,16 @@
                           <div class="col-12 grid-margin stretch-card">
                             <div class="card card-rounded">
                               <div class="card-body">
-                                <h5>Nom du personnel : {{ diagnostic.personnel }}</h5><br>
-                                <h5>Désignation Diagnostic : {{ diagnostic.nomDiagnostic }}</h5><br>
-                                <h5>Description Diagnostic : {{ diagnostic.descriptionDiagnostic }}</h5><br>
-                                <h5>Date du Diagnostic: {{ diagnostic.dateCreation|date('Y-m-d') }}</h5>
+                                <h5>Numéro fiche : Fiche N°{{ fiche.id }}</h5><br>
+                                <h5>Dossier : {{ fiche.dossier }}</h5><br>
+                                <h5>Nom patient : {{ fiche.patient }}</h5><br>
+                                <h5>Date de naissance: {{ fiche.dateNaissance|date('Y-m-d') }}</h5><br>
+                                <h5>Date d'entrée: {{ fiche.dateEntre|date('Y-m-d') }}</h5><br>
+                                <h5>Date de sortie: {{ fiche.dateSortie|date('Y-m-d') }}</h5><br>
+                                <h5>Service : {{ fiche.service }}</h5><br>
+                                <h5>Observation : {{ fiche.observation }}</h5><br>
+                                <h5>Adresse patient : {{ fiche.adressePatient }}</h5><br>
+                                <h5>Date de création : {{ fiche.dateCreation|date('Y-m-d') }}</h5>
                               </div>
                             </div>
                           </div>

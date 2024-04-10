@@ -30,7 +30,7 @@
                     <td>{{ fiche.dossier }}</td>
                     <td>{{ fiche.service }}</td>
                     <td>
-                      <a href="" class="btn btn-primary">Voir</a>
+                      <a href="{{ path("fiche_detail", {id: fiche.id}) }}" class="btn btn-primary">Voir</a>
                     </td>
                   </tr>
                 {% endfor %}
