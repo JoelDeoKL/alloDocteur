@@ -29,7 +29,7 @@
                       <td>{{ personnel[0].fonction }}</td>
                       <td>{{ personnel[0].telephonePersonnel }}</td>
                       <td>
-                        <a href="{{ path("detail_personnel", {id: personnel.id}) }}" class="btn btn-primary">Voir</a>
+                        <a href="{{ path("personnels_detail", {id: personnel[0].id}) }}" class="btn btn-primary">Voir</a>
                       </td>
                   </tr>
                 </tbody>

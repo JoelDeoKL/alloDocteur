@@ -132,6 +132,16 @@ class PersonnelController extends AbstractController
         return $this->render('personnel/details_personnel.html.twig', ['personnel' => $personnel]);
     }
 
+    #[Route('/personnels_detail/{id<\d+>}', name: 'personnels_detail')]
+    public function personnels_detail(ManagerRegistry $doctrine, Personnel $personnel= null, $id): Response
+    {
+        if(!$personnel){
+            $this->addFlash('error', "Ce personnel n'existe pas !");
+            return $this->redirectToRoute("personnels");
+        }
+        return $this->render('patient/details_personnel.html.twig', ['personnel' => $personnel]);
+    }
+
     #[Route('/delete_personnel/{id?0}', name: 'delete_personnel')]
     public function delete_personnel(Personnel $personnel = null, ManagerRegistry $doctrine, Request $request, $id): Response
     {
