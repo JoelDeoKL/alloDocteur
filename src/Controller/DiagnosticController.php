@@ -106,6 +106,16 @@ class DiagnosticController extends AbstractController
         return $this->render('personnel/details_diagnostic.html.twig', ['diagnostic' => $diagnostic]);
     }
 
+    #[Route('/diagnostic_details/{id<\d+>}', name: 'diagnostic_details')]
+    public function diagnostic_details(ManagerRegistry $doctrine, Diagnostic $diagnostic= null, $id): Response
+    {
+        if(!$diagnostic){
+            $this->addFlash('error', "Ce diagnostic n'existe pas !");
+            return $this->redirectToRoute("diagnostics");
+        }
+        return $this->render('patient/details_diagnostic.html.twig', ['diagnostic' => $diagnostic]);
+    }
+
     #[Route('/delete_diagnostic/{id?0}', name: 'delete_diagnostic')]
     public function delete_diagnostic(Diagnostic $diagnostic = null, ManagerRegistry $doctrine, Request $request, $id): Response
     {

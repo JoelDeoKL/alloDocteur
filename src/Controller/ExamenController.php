@@ -106,6 +106,16 @@ class ExamenController extends AbstractController
         return $this->render('personnel/examen_details.html.twig', ['examen' => $examen]);
     }
 
+    #[Route('/examen_details/{id<\d+>}', name: 'examen_details')]
+    public function examen_details(ManagerRegistry $doctrine, Examen $examen= null, $id): Response
+    {
+        if(!$examen){
+            $this->addFlash('error', "Ce examen n'existe pas !");
+            return $this->redirectToRoute("examens");
+        }
+        return $this->render('patient/examen_details.html.twig', ['examen' => $examen]);
+    }
+
     #[Route('/delete_examen/{id?0}', name: 'delete_examen')]
     public function delete_examen(Examen $examen = null, ManagerRegistry $doctrine, Request $request, $id): Response
     {
