@@ -106,6 +106,16 @@ class OrdonnanceController extends AbstractController
         return $this->render('personnel/details_ordonnance.html.twig', ['ordannance' => $ordonnance]);
     }
 
+    #[Route('/ordonnance_details/{id<\d+>}', name: 'ordonnance_details')]
+    public function ordonnance_details(ManagerRegistry $doctrine, Ordonnance $ordonnance= null, $id): Response
+    {
+        if(!$ordonnance){
+            $this->addFlash('error', "Ce ordonnance n'existe pas !");
+            return $this->redirectToRoute("ordonnances");
+        }
+        return $this->render('patient/details_ordonnance.html.twig', ['ordannance' => $ordonnance]);
+    }
+
     #[Route('/delete_ordonnance/{id?0}', name: 'delete_ordonnance')]
     public function delete_ordonnance(Ordonnance $ordonnance = null, ManagerRegistry $doctrine, Request $request, $id): Response
     {

@@ -17,17 +17,17 @@ class Fiche
     #[ORM\ManyToOne(inversedBy: 'fiches')]
     private ?Dossier $dossier = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTimeInterface $date_naissance = null;
+    #[ORM\Column(length: 255)]
+    private ?string $date_naissance = null;
 
     #[ORM\Column(length: 255)]
     private ?string $adresse_patient = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $date_entre = null;
+    #[ORM\Column(length: 255)]
+    private ?string $date_entre = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $date_sortie = null;
+    #[ORM\Column(length: 255)]
+    private ?string $date_sortie = null;
 
     #[ORM\ManyToOne(inversedBy: 'fiches')]
     private ?Patient $patient = null;
@@ -64,12 +64,12 @@ class Fiche
         return $this;
     }
 
-    public function getDateNaissance(): ?\DateTimeInterface
+    public function getDateNaissance(): ?string
     {
         return $this->date_naissance;
     }
 
-    public function setDateNaissance(\DateTimeInterface $date_naissance): static
+    public function setDateNaissance(string $date_naissance): static
     {
         $this->date_naissance = $date_naissance;
 
@@ -88,24 +88,24 @@ class Fiche
         return $this;
     }
 
-    public function getDateEntre(): ?\DateTimeInterface
+    public function getDateEntre(): ?string
     {
         return $this->date_entre;
     }
 
-    public function setDateEntre(\DateTimeInterface $date_entre): static
+    public function setDateEntre(string $date_entre): static
     {
         $this->date_entre = $date_entre;
 
         return $this;
     }
 
-    public function getDateSortie(): ?\DateTimeInterface
+    public function getDateSortie(): ?string
     {
         return $this->date_sortie;
     }
 
-    public function setDateSortie(\DateTimeInterface $date_sortie): static
+    public function setDateSortie(string $date_sortie): static
     {
         $this->date_sortie = $date_sortie;
 
